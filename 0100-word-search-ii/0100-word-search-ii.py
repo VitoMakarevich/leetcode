@@ -60,10 +60,7 @@ class Solution:
         for j in range(len(board)):
           for i in range(len(board[0])):
             local_used = set()
-            accumulator = set()
-            self._findWords(board, i, j, accumulator, trie._head, local_used)
-            for w in accumulator:
-              found.add(w)  
+            self._findWords(board, i, j, found, trie._head, local_used) 
 
         return found
 
