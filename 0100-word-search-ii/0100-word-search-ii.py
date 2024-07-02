@@ -65,8 +65,7 @@ class Solution:
         return found
 
     def _findWords(self, board, i, j, accumulator, head, used):
-      l = board[j][i]
-      child = head.get_child(l)
+      child = head.get_child(board[j][i])
       cur_set_entry = (i, j)
       used.add(cur_set_entry)
       if child:
