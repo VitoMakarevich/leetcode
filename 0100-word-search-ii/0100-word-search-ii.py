@@ -73,7 +73,8 @@ class Solution:
         if child._word:
           accumulator.add(child._word)
         for adj in self._adj(i, j, board, used):
-          self._findWords(board, adj[0], adj[1], accumulator, child, used)
+          if child.get_child(board[adj[1]][adj[0]]):
+            self._findWords(board, adj[0], adj[1], accumulator, child, used)
       
       used.remove(cur_set_entry)
 
