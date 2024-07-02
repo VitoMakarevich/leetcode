@@ -54,7 +54,6 @@ class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         trie = Trie()
         found = set()
-        s = set(words)
 
         for w in words:
           trie.insert(w)
