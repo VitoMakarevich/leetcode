@@ -11,7 +11,6 @@ class Solution:
         return res
         
     def _rec(self, buf, target_l, left_open, allowed_to_open, res, last_left):
-      print(f"left_open={left_open}, allowed_to_open={allowed_to_open}, cur={buf}")
       if len(buf) == target_l:
         res.append(buf)
         return
