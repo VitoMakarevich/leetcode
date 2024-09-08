@@ -21,17 +21,17 @@ class Solution:
                 currently_used_map[l] = currently_used_map.get(l, 0) + 1
                 if remaining_dict.get(l, 0) > 0:
                     remaining_dict[l] = remaining_dict[l] - 1
-                print(i, j, remaining_dict)
+                # print(i, j, remaining_dict)
                 if sum(remaining_dict.values()) == 0:
                     while i <= j:
                         if s[i] not in required_dict:
                             i += 1
                             continue
                         first_element = queue.popleft()
-                        print(currently_used_map, queue)
+                        # print(currently_used_map, queue)
                         currently_used_map[first_element] -= 1
                         if currently_used_map[first_element] < required_dict[first_element]:
-                            print(f"found exhaustion of {first_element} at len {i}-{j}, {currently_used_map}")
+                            # print(f"found exhaustion of {first_element} at len {i}-{j}, {currently_used_map}")
                             min_length = j - i
                             if min_length < min_len:
                                 min_val = s[i: j + 1]
