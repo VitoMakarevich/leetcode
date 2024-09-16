@@ -20,17 +20,22 @@ class Solution:
                 number_of_breaks = word_count - 1
                 space_multiplier = floor(number_of_spaces_in_line / number_of_breaks)
                 remainder = number_of_spaces_in_line % number_of_breaks
-                tmp_res = ""
+                from io import StringIO
+
+                tmp_res = StringIO()
                 for k in range(word_count + number_of_breaks):
                     if (k % 2) == 0:
-                        tmp_res += words[i + int(k / 2)]
+                        tmp_res.write(words[i + int(k / 2)])
                     else:
                         if remainder > 0:
-                            tmp_res += " " * (space_multiplier + 1)
+                            tmp_res.write(" " * (space_multiplier + 1))
                             remainder -= 1
                         else:
-                            tmp_res += " " * space_multiplier
-                res.append(tmp_res)
+                            tmp_res.write(" " * space_multiplier)
+
+                result = tmp_res.getvalue()
+                tmp_res.close() 
+                res.append(result)
             i = j
         return res
                     
