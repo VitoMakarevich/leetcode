@@ -7,13 +7,14 @@ class Solution:
         # print(cache)
         for i in range(len(s)):
             for j in range(i + 1, len(s)):
-                # print(f"starting with i={i}, j={j}")
-                res = self._internal(s, cache, i, j)
-                if res:
-                    length = j - i + 1
-                    if current_longest_length < length:
-                        current_longest = s[i: j+1]
-                        current_longest_length = length
+                if j - i >= current_longest_length:
+                    # print(f"starting with i={i}, j={j}")
+                    res = self._internal(s, cache, i, j)
+                    if res:
+                        length = j - i + 1
+                        if current_longest_length < length:
+                            current_longest = s[i: j+1]
+                            current_longest_length = length
         return current_longest
     
     def _internal(self, s, cache, i, j):
