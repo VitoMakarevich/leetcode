@@ -5,8 +5,8 @@ class Solution:
         result_holder = s[0]
         cache = [{j: True for j in range(len(s) - i) if j == 0} for i in range(len(s))]
         # print(cache)
-        for i in range(len(s)):
-            for j in range(i + 1, len(s)):
+        for i in reversed(range(len(s))):
+            for j in reversed(range(i + 1, len(s))):
                 if j - i >= current_longest_length:
                     # print(f"starting with i={i}, j={j}")
                     res = self._internal(s, cache, i, j)
