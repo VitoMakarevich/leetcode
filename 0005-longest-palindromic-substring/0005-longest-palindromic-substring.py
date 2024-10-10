@@ -16,15 +16,13 @@ class Solution:
         return current_longest
     
     def _internal(self, s, cache, i, j):
-        if i == j:
-            return True
-        if j == i + 1:
-            cache[i][j] = s[i] == s[j]
-
         if cache[i][j] is None:
-            ends_match = s[i] == s[j]
-            inside_match = self._internal(s, cache, i + 1, j - 1)
-            cache[i][j] = ends_match and inside_match
+            if j == i + 1:
+                cache[i][j] = s[i] == s[j]
+            else:
+                ends_match = s[i] == s[j]
+                inside_match = self._internal(s, cache, i + 1, j - 1)
+                cache[i][j] = ends_match and inside_match
         return cache[i][j]
 
         
