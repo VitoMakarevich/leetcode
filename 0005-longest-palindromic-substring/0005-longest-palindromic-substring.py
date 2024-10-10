@@ -12,7 +12,6 @@ class Solution:
                     if current_longest_length < length:
                         current_longest = s[i: j+1]
                         current_longest_length = length
-        
         return current_longest
     
     def _internal(self, s, cache, i, j):
