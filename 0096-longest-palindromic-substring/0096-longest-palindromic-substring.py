@@ -1,5 +1,39 @@
 class Solution:
+    def manachers(self, s): 
+        preprocessed = f"#{'#'.join(list(s))}#"
+        cache = [0 for i in range(len(preprocessed))]
+        right = 0
+        center = 0
+        for i in range(len(preprocessed)):
+            mirror = 2 * center - i
+            if i < right:
+                cache[i] = min(center - i, cache[mirror])
+            try:
+                while i + 1 + cache[i] < len(preprocessed) and i - 1 - cache[i] >=0 and preprocessed[i + 1 + cache[i]] == preprocessed[i - 1 - cache[i]]:
+                    cache[i] += 1
+            except Exception:
+                print(f"f{i + 1 + cache[i]}, {i - 1 - cache[i]}")
+            if i > right:
+                center = i
+                right = i + cache[i]
+        
+        biggest_idx = -1
+        biggest_len = 0
+
+        for index, v in enumerate(cache):
+            if v > biggest_len:
+                biggest_len = v
+                biggest_idx = index
+        
+        res = preprocessed[biggest_idx - biggest_len: biggest_idx + biggest_len + 1]
+        filtered = res.replace('#', '')
+
+        return filtered
+
     def longestPalindrome(self, s: str) -> str:
+        return self.manachers(s)
+        
+    def dynamic(self, s):
         current_longest = s[0]
         current_longest_length = 1
         result_holder = s[0]
@@ -15,8 +49,7 @@ class Solution:
                         if current_longest_length < length:
                             current_longest = s[i: j+1]
                             current_longest_length = length
-        return current_longest
-    
+        return current_longest    
     def _internal(self, s, cache, i, j):
         # print(f"i={i}, j={j}")
         if j - i not in cache[i]:
