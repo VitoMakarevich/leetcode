@@ -9,10 +9,10 @@ class Solution:
             if i < right:
                 cache[i] = min(center - i, cache[mirror])
             try:
-                while i + 1 + cache[i] < len(preprocessed) and i - 1 - cache[i] >=0 and preprocessed[i + 1 + cache[i]] == preprocessed[i - 1 - cache[i]]:
+                while preprocessed[i + 1 + cache[i]] == preprocessed[i - 1 - cache[i]]:
                     cache[i] += 1
             except Exception:
-                print(f"f{i + 1 + cache[i]}, {i - 1 - cache[i]}")
+                pass
             if i > right:
                 center = i
                 right = i + cache[i]
