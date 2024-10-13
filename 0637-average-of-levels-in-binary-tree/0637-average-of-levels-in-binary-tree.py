@@ -11,19 +11,16 @@ class Solution:
         res = []
         while queue:
             s = 0
-            c = 0
-            next_nodes = deque()
-            while queue:
-                item = queue.pop()
+            c = len(queue)
+            for i in range(c):
+                item = queue.popleft()
                 s += item.val
-                c += 1
                 if item.left:
-                    next_nodes.append(item.left)
+                    queue.append(item.left)
                 if item.right:
-                    next_nodes.append(item.right)
+                    queue.append(item.right)
             avg = s / c
             res.append(self.floor_to_5_places(avg))
-            queue = next_nodes
 
         return res
 
