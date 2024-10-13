@@ -5,7 +5,8 @@ class Solution:
         res = []
         prev = nums[0]
         start = nums[0]
-        for v in nums[1:]:
+        for i in range(1, len(nums)):
+            v = nums[i]
             if v - prev == 1:
                 prev = v
             else:
