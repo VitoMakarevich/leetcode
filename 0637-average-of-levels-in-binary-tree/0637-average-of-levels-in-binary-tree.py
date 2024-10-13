@@ -10,19 +10,24 @@ class Solution:
         queue.append(root)
         res = []
         while queue:
-            this_level = []
+            s = 0
+            c = 0
             next_nodes = deque()
             while queue:
                 item = queue.pop()
-                this_level.append(item.val)
+                s += item.val
+                c += 1
                 if item.left:
                     next_nodes.append(item.left)
                 if item.right:
                     next_nodes.append(item.right)
-            avg = sum(this_level) / len(this_level)
-            res.append(avg)
+            avg = s / c
+            res.append(self.floor_to_5_places(avg))
             while next_nodes:
                 queue.append(next_nodes.pop())
 
         return res
-            
+
+    def floor_to_5_places(self, number):
+        factor = 10 ** 5
+        return math.floor(number * factor) / factor            
