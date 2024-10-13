@@ -23,8 +23,7 @@ class Solution:
                     next_nodes.append(item.right)
             avg = s / c
             res.append(self.floor_to_5_places(avg))
-            while next_nodes:
-                queue.append(next_nodes.pop())
+            queue = next_nodes
 
         return res
 
