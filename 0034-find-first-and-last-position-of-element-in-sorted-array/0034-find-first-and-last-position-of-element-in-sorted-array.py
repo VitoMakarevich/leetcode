@@ -2,7 +2,7 @@ class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         self._nums = nums
         self._target = target
-        return self.search_with_loop(nums, target)
+        return self._search_pure_log(nums, target)
 
     # def search_with_loop(self, nums, target):
     #     any_coordinate = self._any_match(0, len(nums) - 1)
