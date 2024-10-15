@@ -3,7 +3,17 @@ class Solution:
         visited = set()
         pq = deque()
         target = len(board) * len(board)
-        is_root_snake_or_ladder = self._get_n(1, board)
+        flat_board = [-1]
+        for i in range(len(board) - 1, -1, -1):
+            if len(board) % 2 != (i + 1) % 2:
+                for j in range(len(board) - 1, -1, -1):
+                    flat_board.append(board[i][j])
+            else:
+                for j in range(0, len(board)):
+                    flat_board.append(board[i][j])
+        # print(flat_board)
+        is_root_snake_or_ladder = flat_board[1]
+
         if is_root_snake_or_ladder == -1:
             pq.append(1)
         else:
@@ -18,7 +28,7 @@ class Solution:
                     if current_position == target:
                         return turn
                     for next_el in self._next_moves(current_position, target):
-                        is_snake_or_ladder = self._get_n(next_el, board)
+                        is_snake_or_ladder = flat_board[next_el]
                         if is_snake_or_ladder != -1:
                             pq.append(is_snake_or_ladder)
                         else:
