@@ -16,12 +16,14 @@ class Solution:
         if biggest_pos == len(nums) - 1:
             return self._find(0, len(nums) - 1, target, nums)
         else:
-            left_search = self._find(0, biggest_pos, target, nums)
-            if left_search == -1:
-                return self._find(biggest_pos + 1, len(nums) - 1, target, nums)
+            left_side_range = range(nums[0], nums[biggest_pos] + 1)
+            if target in left_side_range:
+                return self._find(0, biggest_pos, target, nums)
             else:
-                return left_search
-
+                right_side_range = range(nums[biggest_pos + 1], nums[len(nums) - 1] + 1)
+                if target in right_side_range:
+                    return self._find(biggest_pos + 1, len(nums) - 1, target, nums)
+            return -1
     
     def _find(self, left, right, target, nums):
         while left <= right:
