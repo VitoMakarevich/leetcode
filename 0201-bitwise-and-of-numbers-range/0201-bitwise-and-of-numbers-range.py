@@ -9,12 +9,12 @@ class Solution:
             counter += 1
 
         leftmost_same_bit = counter - 1
-        # print(f"cp_left={bin(cp_left)}, cp_right={bin(cp_right)}, leftmost_same_bit={leftmost_same_bit}")
-        if leftmost_same_bit == 0 and cp_left == 0 and cp_right == 0:
-            return 1 & left & right
-        elif (cp_left != 0 or cp_right != 0):
-            return 0
-        elif leftmost_same_bit == -1:
+        # print(f"leftmost_same_bit={leftmost_same_bit},cp_left={bin(cp_left)}, cp_right={bin(cp_right)}")
+        # if leftmost_same_bit == 0 and cp_left == 0 and cp_right == 0:
+        #     return 1 & left & right
+        # elif (cp_left != 0 or cp_right != 0):
+        #     return 0
+        if (leftmost_same_bit == -1) or cp_left != cp_right:
             return 0
         cp_left = left
         cp_right = right
@@ -26,7 +26,5 @@ class Solution:
             if not bit_equals:
                 break
             rightmost_same_bit = temp
-        # print(f"leftmost_same_bit={leftmost_same_bit} and rightmost_same_bit={rightmost_same_bit}")
         mask = ((1 << (leftmost_same_bit - rightmost_same_bit + 1)) - 1) << rightmost_same_bit
-        # print(f"mask={bin(mask)}")
         return left & mask & right
