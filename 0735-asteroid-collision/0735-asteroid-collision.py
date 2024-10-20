@@ -5,26 +5,19 @@ class Solution:
             cur = asteroids[i]
             while res:
                 last = res.pop()
-                if cur < 0 and last > 0 and abs(cur) > last:
-                    continue
-                else:
+                if not(cur < 0 and last > 0 and abs(cur) > last):
                     res.append(last)
                     break
             if res:
-                last = res.pop()
+                last = res[-1]
+                # if equal but different signs
                 if cur < 0 and last > 0 and cur == -last:
-                    # do nothing
-                    pass
-                elif (last < 0 and cur < 0) or (last > 0 and cur > 0):
-                    res.append(last)
+                    # remove last item in deque
+                    res.pop()
+                # if both same sign or + follows -
+                elif ((last < 0 and cur < 0) or (last > 0 and cur > 0)) or (cur > 0 and last < 0):
                     res.append(cur)
-                elif cur > 0 and last < 0:
-                    res.append(last)
-                    res.append(cur)
-                else:
-                    res.append(last)
             else:
                 res.append(cur)
-            # print(f"i={i}, res={list(res)}")
 
         return list(res)
