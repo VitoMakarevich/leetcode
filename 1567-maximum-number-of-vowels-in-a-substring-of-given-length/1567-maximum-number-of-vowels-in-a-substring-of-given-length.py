@@ -1,20 +1,16 @@
 class Solution:
     _vowels = {'a', 'e', 'i', 'o', 'u'}
     def maxVowels(self, s: str, k: int) -> int:
-        left = 0
         right = k - 1
 
         vowels = self.count_vowels(s[0: k])
         res = vowels
         if res == k:
-                return k
+            return k
         while right < len(s) - 1:
-            is_left_vowel = s[left] in self._vowels
-            is_new_vowel = s[right + 1] in self._vowels
-            left = left + 1
             right = right + 1
-            vowels -= int(is_left_vowel)
-            vowels += int(is_new_vowel)
+            vowels -= int(s[right - k] in self._vowels)
+            vowels += int(s[right] in self._vowels)
             res = max(vowels, res)
             if res == k:
                 return k
