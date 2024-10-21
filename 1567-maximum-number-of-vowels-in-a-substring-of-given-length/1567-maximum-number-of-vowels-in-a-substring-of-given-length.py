@@ -6,6 +6,8 @@ class Solution:
 
         vowels = self.count_vowels(s[0: k])
         res = vowels
+        if res == k:
+                return k
         while right < len(s) - 1:
             is_left_vowel = s[left] in self._vowels
             is_new_vowel = s[right + 1] in self._vowels
@@ -14,6 +16,8 @@ class Solution:
             vowels -= int(is_left_vowel)
             vowels += int(is_new_vowel)
             res = max(vowels, res)
+            if res == k:
+                return k
         
         return res
     
