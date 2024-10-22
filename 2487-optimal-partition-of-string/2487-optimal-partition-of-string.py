@@ -25,8 +25,8 @@ class Solution:
                             new = new[0:i]
                     else:
                         new = new[i:]
-                        i = 0
-                        left_set = set()
+                        i = j - i
+                        left_set = right_set
                 else:
                     new = new[i:]
                     i = 0
