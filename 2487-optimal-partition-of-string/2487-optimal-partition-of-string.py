@@ -2,9 +2,9 @@ class Solution:
     def partitionString(self, s: str) -> int:
         new = s
         counter = 0
-        while len(new) > 0:
-            i = 0
-            left_set = set()    
+        i = 0
+        left_set = set() 
+        while len(new) > 0:   
             while i < len(new) and new[i] not in left_set:
                 left_set.add(new[i])
                 i += 1
@@ -25,10 +25,12 @@ class Solution:
                             new = new[0:i]
                     else:
                         new = new[i:]
-                        # i = 0
-                        # left_set = set()
+                        i = 0
+                        left_set = set()
                 else:
                     new = new[i:]
+                    i = 0
+                    left_set = set()
             counter += 1
         
         return counter
