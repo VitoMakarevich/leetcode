@@ -1,18 +1,12 @@
 class Solution:
     def numSquares(self, n: int) -> int:
-       cache = {}
-       return self._dp(cache, n)
-
-    def _dp(self, cache, n):
-        if n == 0:
-            return 0
-        if not n in cache:
-            max_sqrt = int(sqrt(n))
-            possible_parts = [i * i for i in range(int(sqrt(max_sqrt)), max_sqrt + 1)]
-            cache[n] = 1 + min(map(
-                lambda x: self._dp(cache, n - x),
-                possible_parts
-            ))
-        return cache[n]
-
-    
+        dp = [float('inf')] * (n + 1)
+        dp[0] = 0
+        for i in range(1, n + 1):
+            min_val = float('inf')
+            j = 1
+            while j * j <= i:
+                min_val = min(min_val, dp[i - j * j] + 1)
+                j += 1
+            dp[i] = min_val
+        return dp[n]
