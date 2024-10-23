@@ -8,7 +8,7 @@ class Solution:
             return 0
         if not n in cache:
             max_sqrt = int(sqrt(n))
-            possible_parts = [i * i for i in range(1, max_sqrt + 1)]
+            possible_parts = [i * i for i in range(int(sqrt(max_sqrt)), max_sqrt + 1)]
             cache[n] = 1 + min(map(
                 lambda x: self._dp(cache, n - x),
                 possible_parts
