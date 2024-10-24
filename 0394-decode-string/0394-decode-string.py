@@ -16,7 +16,11 @@ class Solution:
                     if len(multipliers) > 0:
                         new_s = new_str
                         while len(strs) >= len(multipliers):
-                            new_s = f'{strs.pop()}{new_s}'
+                            new_symbol = strs.pop()
+                            if new_symbol != '[':
+                                new_s = f'{new_symbol}{new_s}'
+                            else:
+                                break
                         strs.append(new_s)
                     else:
                         # print(f"appending in {cur}")
@@ -26,12 +30,17 @@ class Solution:
             elif cur == '[':
                 multipliers.append(int(''.join(number_local)))
                 number_local = deque()
+                strs.append('[')
             elif cur == ']':
                 # print(f"multiplers={multipliers}, str_local={str_local} strs={strs}, res={res}")
                 multipler = multipliers.pop()
                 prev = ''
                 while len(strs) > len(multipliers):
-                    prev = f"{strs.pop()}{prev}"
+                    new_symbol = strs.pop()
+                    if new_symbol != '[':
+                        prev = f"{new_symbol}{prev}"
+                    else:
+                        break
                 new_str = (prev + ''.join(str_local)) * multipler
                 # print(new_str)
                 if len(multipliers) == 0:
