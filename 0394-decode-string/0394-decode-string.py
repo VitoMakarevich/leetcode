@@ -23,7 +23,6 @@ class Solution:
                                 break
                         strs.append(new_s)
                     else:
-                        # print(f"appending in {cur}")
                         res += new_str
                     str_local = deque()
                 number_local.append(cur)
@@ -32,7 +31,6 @@ class Solution:
                 number_local = deque()
                 strs.append('[')
             elif cur == ']':
-                # print(f"multiplers={multipliers}, str_local={str_local} strs={strs}, res={res}")
                 multipler = multipliers.pop()
                 prev = ''
                 while len(strs) > len(multipliers):
@@ -42,9 +40,7 @@ class Solution:
                     else:
                         break
                 new_str = (prev + ''.join(str_local)) * multipler
-                # print(new_str)
                 if len(multipliers) == 0:
-                    # print(f"miltipliers = {multipliers}")
                     res += new_str
                 else:
                     strs.append(new_str)
