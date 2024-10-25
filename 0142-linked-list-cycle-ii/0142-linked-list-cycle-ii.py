@@ -16,10 +16,9 @@ class Solution:
                 break
         if slow is None or fast is None:
             return None
-        meet_point = slow
-        
+
         left = head
-        right = meet_point
+        right = slow
         while left != right:
             left = left.next
             right = right.next
