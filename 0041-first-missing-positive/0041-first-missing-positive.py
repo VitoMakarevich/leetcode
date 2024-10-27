@@ -1,10 +1,8 @@
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
         existing = set()
-        max_v = float('-inf')
         min_v = float('inf')
         for i in nums:
-            max_v = max(max_v, i)
             if i > 0:
                 min_v = min(min_v, i)
                 existing.add(i)
@@ -15,7 +13,7 @@ class Solution:
                 min_missing = min(min_missing, i - 1)
             if i + 1 > 0 and not i + 1 in existing:
                 min_missing = min(min_missing, i + 1)
-        
+
         if min_v > 1:
             return 1
         else:
