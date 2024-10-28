@@ -14,7 +14,7 @@ class Solution:
                     # increase remove counter by 1
                     to_delete[to_be_removed] = to_delete.get(to_be_removed, 0) + 1
                     # print(f"i={i}, to_be_removed={to_be_removed}, to_delete={to_delete}, hq={hq}, {to_delete.get(-hq[0], 0)}")
-                    while len(hq) > 0 and to_delete.get(hq[0], 0) > 0:
+                    while to_delete.get(hq[0], 0) > 0:
                         # print(i, to_delete, hq, to_delete.get(hq[0], 0), hq[0])
                         top = hq[0]
                         heapq.heappop(hq)
