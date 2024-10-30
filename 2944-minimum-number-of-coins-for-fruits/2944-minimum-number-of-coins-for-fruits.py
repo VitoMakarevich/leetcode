@@ -12,9 +12,9 @@ class Solution:
             # print(f"for pos {pos} max_allowed_gap_to_skip is {max_allowed_gap_to_skip}, min_required_to_buy={min_required_to_buy}, range_adjustment={range_adjustment}")
             r = range(1, pos + 3)
 
-            res = prices[pos] + min([
+            res = prices[pos] + min(
                 self._dp(cache, pos + i, prices) for i in r
-            ])
+            )
             cache[pos] = res
             return res
         return cache[pos]
