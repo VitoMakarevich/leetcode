@@ -2,18 +2,13 @@ class Solution:
     def maxOperations(self, nums: List[int], k: int) -> int:
         nums_with_counts = Counter(nums)
         res = 0
-        for v in nums:
-            if v >= k:
-                continue
-            if nums_with_counts[v] > 0:
-                nums_with_counts[v] -= 1
-                if nums_with_counts.get(k - v, 0) > 0:
-                    nums_with_counts[k - v] -= 1
-                    res += 1
-                    while k - v != v and nums_with_counts[v] > 0 and nums_with_counts[k - v] > 0:
-                        res += 1
-                        nums_with_counts[v] -= 1
-                        nums_with_counts[k - v] -= 1
-            else:
-                nums_with_counts[v] -= 1
+        used = set()
+        for item, amount in nums_with_counts.items():
+            if item not in used:
+                if k - item == item:
+                    res += floor(amount / 2)
+                elif nums_with_counts.get(k - item, 0) > 0:
+                    res += min(amount, nums_with_counts[k - item])
+                    used.add(k - item)
+
         return res
