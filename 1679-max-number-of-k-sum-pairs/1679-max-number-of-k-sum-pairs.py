@@ -1,7 +1,6 @@
 class Solution:
     def maxOperations(self, nums: List[int], k: int) -> int:
         nums_with_counts = Counter(nums)
-        cnt = len(nums)
         res = 0
         for v in nums:
             if v >= k:
