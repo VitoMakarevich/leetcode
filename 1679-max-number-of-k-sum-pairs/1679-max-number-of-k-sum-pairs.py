@@ -4,6 +4,8 @@ class Solution:
         cnt = len(nums)
         res = 0
         for v in nums:
+            if v >= k:
+                continue
             if nums_with_counts[v] > 0:
                 nums_with_counts[v] -= 1
                 if nums_with_counts.get(k - v, 0) > 0:
