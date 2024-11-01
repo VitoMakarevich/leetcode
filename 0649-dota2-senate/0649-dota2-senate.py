@@ -11,7 +11,6 @@ class Solution:
          
         new_iter_set = set(voted + not_voted)
         iterations = not_voted + voted
-        # print(voted, not_voted, new_iter_set)
         while len(new_iter_set) != 1:
             voted = deque()
             not_voted = deque()
@@ -20,10 +19,8 @@ class Solution:
                     voted.append(not_voted.pop())
                 else:
                     not_voted.append(vote)
-            # print(voted, not_voted)
             iterations = not_voted + voted
             new_iter_set = set(voted + not_voted)
-        #     print(voted, not_voted, new_iter_set)
         
         return self.fmt(next(iter(new_iter_set)))
             
