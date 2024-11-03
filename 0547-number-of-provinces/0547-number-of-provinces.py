@@ -16,8 +16,4 @@ class Solution:
                 self.dfs(visited, isConnected, neighbour)
 
     def neighbors(self, i, isConnected):
-        res = []
-        for index, v in enumerate(isConnected[i]):
-            if v == 1:
-                res.append(index)
-        return res
+        return [index for index, v in enumerate(isConnected[i]) if v == 1]
