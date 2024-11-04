@@ -44,9 +44,8 @@ class Solution:
         for v in self._exits:
             i, j = coordinates
             exit_i, exit_j = v
-            dist = sqrt(pow(abs(i - exit_i), 2) + pow(abs(j - exit_j), 2))
+            dist = abs(i - exit_i) + abs(j - exit_j)
             res.append(dist)
-
     
         return min(res)
         
