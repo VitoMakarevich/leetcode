@@ -2,6 +2,7 @@ class Solution:
     def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
         entrance_tuple = (entrance[0], entrance[1])
         q = deque([entrance_tuple])
+        self._directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         visited = set()
         turn = 0
         while q:
@@ -27,7 +28,7 @@ class Solution:
         i_max = len(maze)
         j_max = len(maze[0])
 
-        for di, dj in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+        for di, dj in self._directions:
             ni, nj = i + di, j + dj
             if 0 <= ni < i_max and 0 <= nj < j_max and (ni, nj) not in visited and maze[ni][nj] == '.':
                 yield (ni, nj)
