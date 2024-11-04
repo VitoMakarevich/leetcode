@@ -36,8 +36,6 @@ class Solution:
         return list(filter(lambda x: x != entrance, res))
 
     def calculate_exit_distance(self, coordinates):
-        res = []
-        
         target_i, target_j = self._target
         i, j = coordinates
         dist = abs(i - target_i) + abs(j - target_j)
