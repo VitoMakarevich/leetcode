@@ -1,0 +1,39 @@
+class Solution:
+    def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
+        entrance_tuple = (entrance[0], entrance[1])
+        q = deque([entrance_tuple])
+        visited = set()
+        turn = 0
+        while q:
+            for v in range(len(q)):
+                pos = q.popleft()
+                i, j = pos
+                if pos != entrance_tuple and (
+                    i == 0 or
+                    i == len(maze) - 1 or
+                    j == 0 or
+                    j == len(maze[0]) - 1
+                ):
+                    return turn
+                for adj in self.neighbors(maze, pos, visited):
+                    visited.add(adj)
+                    q.append(adj)
+            turn += 1
+        return -1
+
+
+    def neighbors(self, maze, position, visited):
+        i, j = position
+        i_max = len(maze)
+        j_max = len(maze[0])
+        res = []
+        if i - 1 >= 0:
+            res.append((i - 1, j))
+        if i + 1 < i_max:
+            res.append((i + 1, j))
+        if j - 1 >= 0:
+            res.append((i, j - 1))
+        if j + 1 < j_max:
+            res.append((i, j + 1))
+
+        return filter(lambda x: x not in visited and maze[x[0]][x[1]] == '.', res)
