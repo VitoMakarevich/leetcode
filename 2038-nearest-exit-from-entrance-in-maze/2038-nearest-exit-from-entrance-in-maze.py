@@ -26,14 +26,8 @@ class Solution:
         i, j = position
         i_max = len(maze)
         j_max = len(maze[0])
-        res = []
-        if i - 1 >= 0:
-            res.append((i - 1, j))
-        if i + 1 < i_max:
-            res.append((i + 1, j))
-        if j - 1 >= 0:
-            res.append((i, j - 1))
-        if j + 1 < j_max:
-            res.append((i, j + 1))
 
-        return filter(lambda x: x not in visited and maze[x[0]][x[1]] == '.', res)
+        for di, dj in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            ni, nj = i + di, j + dj
+            if 0 <= ni < i_max and 0 <= nj < j_max and (ni, nj) not in visited and maze[ni][nj] == '.':
+                yield (ni, nj)
