@@ -28,12 +28,10 @@ class Solution:
                     number = deque()
                 operations_to_be_done = deque()
                 numbers_to_be_used = deque()
-                # print(operators, numbers)
                 while len(operators) and operators[-1] != '(':
                     operations_to_be_done.appendleft(operators.pop())
                 while len(numbers) and numbers[-1] != '(':
                     numbers_to_be_used.appendleft(numbers.pop())
-                # print("f", operations_to_be_done, numbers_to_be_used)
                 if len(operations_to_be_done) == len(numbers_to_be_used):
                     numbers_to_be_used.appendleft(-numbers_to_be_used.popleft())
                     operations_to_be_done.popleft()
@@ -51,8 +49,6 @@ class Solution:
                 #
 
                 numbers.append(numbers_to_be_used[0])
-                # print(numbers, operators, numbers_to_be_used)
             else:
                 number.append(c)
-        # print(numbers, operators)
         return numbers[0]
