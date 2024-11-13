@@ -1,23 +1,23 @@
 class Solution:
     def calculate(self, s: str) -> int:
-        numbers = deque()
-        operators = deque()
-        number = deque()
+        numbers = []
+        operators = []
+        number = []
         for c in f"({s})":
             if c == ' ':
                 if len(number):
                     numbers.append(int(''.join(number)))
-                    number = deque()
+                    number = []
                 continue
             elif c == '+':
                 if len(number):
                     numbers.append(int(''.join(number)))
-                    number = deque()
+                    number = []
                 operators.append(c)
             elif c == '-':
                 if len(number):
                     numbers.append(int(''.join(number)))
-                    number = deque()
+                    number = []
                 operators.append(c)
             elif c == '(':
                 operators.append(c)
@@ -25,7 +25,7 @@ class Solution:
             elif c == ')':
                 if len(number):
                     numbers.append(int(''.join(number)))
-                    number = deque()
+                    number = []
                 while operators[-1] != '(':
                     right_operand = numbers.pop()
                     op = operators.pop()
