@@ -8,7 +8,6 @@ class Node:
 
 from typing import Optional
 class Solution:
-    nodes = []
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
         self.nodes = {}
         if node is None:
