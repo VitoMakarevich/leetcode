@@ -1,8 +1,7 @@
 class Solution:
     def countDistinctIntegers(self, nums: List[int]) -> int:
         s = set(nums)
-        unique = list(s)
-        for v in unique:
+        for v in nums:
             s.add(self.reverse(v))
         return len(s)
 
