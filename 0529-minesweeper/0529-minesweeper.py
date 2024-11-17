@@ -11,21 +11,27 @@ class Solution:
         if click_item == 'M':
             board[i][j] = 'X'
         elif click_item == 'E':
-            visited = set()
-            self._open(i, j, visited)
+            self._open(i, j)
         return self._board
 
 
-    def _open(self, i, j, visited):
-        if not (i, j) in visited:
-            visited.add((i, j))
-            neighbors, bomb_counter = self._get_neighbors(i, j)
-            if bomb_counter == 0:
-                self._board[i][j] = 'B'
-                for n in neighbors:
-                    self._open(n[0], n[1], visited)
-            else:
-                self._board[i][j] = str(bomb_counter)
+    def _open(self, i, j):
+        queue = deque()
+        queue.append((i, j))
+        visited = set()
+        while queue:
+            for _ in range(len(queue)):
+                item = queue.popleft()
+                neighbors, bomb_counter = self._get_neighbors(item[0], item[1])
+                if bomb_counter == 0:
+                    self._board[item[0]][item[1]] = 'B'
+                    for n in neighbors:
+                        if n not in visited:
+                            visited.add(n)
+                            queue.append(n)
+                else:
+                    self._board[item[0]][item[1]] = str(bomb_counter)
+                
 
     def _get_neighbors(self, i, j):
         neighbors = []
