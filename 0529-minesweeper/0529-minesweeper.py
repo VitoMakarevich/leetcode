@@ -10,7 +10,7 @@ class Solution:
         click_item = board[i][j]
         if click_item == 'M':
             board[i][j] = 'X'
-        elif click_item == 'E' or click_item == 'B':
+        elif click_item == 'E':
             self._open(i, j)
         return self._board
 
