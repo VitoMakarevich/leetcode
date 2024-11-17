@@ -11,20 +11,21 @@ class Solution:
         if click_item == 'M':
             board[i][j] = 'X'
         elif click_item == 'E':
-            self._open(i, j)
+            visited = set()
+            self._open(i, j, visited)
         return self._board
 
 
-    def _open(self, i, j):
-        if not (self._board[i][j] == 'E'):
-            return
-        neighbors, bomb_counter = self._get_neighbors(i, j)
-        if bomb_counter == 0:
-            self._board[i][j] = 'B'
-            for n in neighbors:
-                self._open(n[0], n[1])
-        else:
-            self._board[i][j] = str(bomb_counter)
+    def _open(self, i, j, visited):
+        if not (i, j) in visited:
+            visited.add((i, j))
+            neighbors, bomb_counter = self._get_neighbors(i, j)
+            if bomb_counter == 0:
+                self._board[i][j] = 'B'
+                for n in neighbors:
+                    self._open(n[0], n[1], visited)
+            else:
+                self._board[i][j] = str(bomb_counter)
 
     def _get_neighbors(self, i, j):
         neighbors = []
