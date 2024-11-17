@@ -18,8 +18,7 @@ class Solution:
     def _open(self, i, j):
         if not (self._board[i][j] == 'E'):
             return
-        neighbors = self._get_neighbors(i, j)
-        bomb_counter = sum(1 for neighbor in neighbors if self._board[neighbor[0]][neighbor[1]] == 'M')
+        neighbors, bomb_counter = self._get_neighbors(i, j)
         if bomb_counter == 0:
             self._board[i][j] = 'B'
             for n in neighbors:
@@ -27,14 +26,14 @@ class Solution:
         else:
             self._board[i][j] = str(bomb_counter)
 
-
     def _get_neighbors(self, i, j):
         neighbors = []
-        
+        bombs = 0
         for di, dj in self.directions:
             ni, nj = i + di, j + dj
             
             if 0 <= ni < len(self._board) and 0 <= nj < len(self._board[0]):
                 neighbors.append((ni, nj))
+                bombs += 1 if self._board[ni][nj] == 'M' else 0
         
-        return neighbors
+        return neighbors, bombs
