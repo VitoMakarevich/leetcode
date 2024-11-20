@@ -4,7 +4,7 @@ class Solution:
         # 1. with 2 heaps - time complexity O((n + k) logK), memory - O(k)
         # 2. with binary search - logN + k, memory - O(1)
         # bisect is clear winner
-        return self._pq(arr, k, x)
+        return self._bisect(arr, k, x)
 
     def _pq(self, arr: List[int], k: int, x: int) -> List[int]:
         lower = []
