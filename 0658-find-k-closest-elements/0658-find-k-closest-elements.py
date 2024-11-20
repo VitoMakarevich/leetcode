@@ -14,7 +14,7 @@ class Solution:
             elif x > arr[mid]:
                 left = mid + 1
             else:
-                left = mid - 1
+                left = mid
                 break
         left = left - 1
         right = left + 1
