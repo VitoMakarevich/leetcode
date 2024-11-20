@@ -6,29 +6,29 @@ class Solution:
         # bisect is clear winner
         return self._bisect(arr, k, x)
 
-    def _pq(self, arr: List[int], k: int, x: int) -> List[int]:
-        lower = []
-        higher = []
-        for v in arr:
-            if v <= x:
-                reverse = -v
-                heapq.heappush(lower, reverse)
-            else:
-                heapq.heappush(higher, v)
-        res = deque()
-        while len(res) < k:
-            if len(lower) > 0 and len(higher) > 0:
-                left_diff = abs(-lower[0] - x)
-                right_diff = abs(higher[0] - x)
-                if left_diff <= right_diff:
-                    res.appendleft(-heapq.heappop(lower))
-                else:
-                    res.append(heapq.heappop(higher))
-            elif len(lower) > 0:
-                res.appendleft(-heapq.heappop(lower))
-            else:
-                res.append(heapq.heappop(higher))
-        return list(res)                
+    # def _pq(self, arr: List[int], k: int, x: int) -> List[int]:
+    #     lower = []
+    #     higher = []
+    #     for v in arr:
+    #         if v <= x:
+    #             reverse = -v
+    #             heapq.heappush(lower, reverse)
+    #         else:
+    #             heapq.heappush(higher, v)
+    #     res = deque()
+    #     while len(res) < k:
+    #         if len(lower) > 0 and len(higher) > 0:
+    #             left_diff = abs(-lower[0] - x)
+    #             right_diff = abs(higher[0] - x)
+    #             if left_diff <= right_diff:
+    #                 res.appendleft(-heapq.heappop(lower))
+    #             else:
+    #                 res.append(heapq.heappop(higher))
+    #         elif len(lower) > 0:
+    #             res.appendleft(-heapq.heappop(lower))
+    #         else:
+    #             res.append(heapq.heappop(higher))
+    #     return list(res)                
 
     def _bisect(self, arr: List[int], k: int, x: int) -> List[int]:
         res = deque()
