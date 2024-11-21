@@ -1,7 +1,6 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
         counter = Counter(s)
-        print(counter)
         pq = []
         for character, count in counter.items():
             heapq.heappush(pq, (-count, character))
