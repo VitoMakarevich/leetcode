@@ -19,10 +19,9 @@ class Solution:
             return 1
 
     def largestNumber(self, nums: List[int]) -> str:
-
-        str_nums = list(map(lambda x: str(x), nums))
-        sorted_nums = sorted(str_nums, key=cmp_to_key(self.compare))
-        res = ''.join(sorted_nums)
+        nums = list(map(lambda x: str(x), nums))
+        nums.sort(key=cmp_to_key(self.compare))
+        res = ''.join(nums)
         if res[0] == '0':
             return '0'
 
