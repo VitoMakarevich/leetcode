@@ -16,7 +16,6 @@ class Solution:
                 store[s] = cursor
             else:
                 to_delete = store[s].next
-                print(to_delete, s)
                 temp_sum = s + to_delete.val
                 while to_delete != cursor:
                     del store[temp_sum]
