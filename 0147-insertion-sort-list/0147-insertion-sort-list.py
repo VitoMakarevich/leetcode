@@ -14,6 +14,10 @@ class Solution:
                 sorted_end.next = pointer
                 pointer.next = None
                 sorted_end = pointer
+            elif pointer.val < dummy.next.val:
+                temp_dummy_next = dummy.next
+                dummy.next = pointer
+                pointer.next = temp_dummy_next
             else:
                 iterator = dummy
                 while iterator.next and iterator.next.val < pointer.val:
