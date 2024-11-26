@@ -14,8 +14,7 @@ class Solution:
             size += 1
             elements[v] = elements.get(v, 0) + 1
             max_in_elements = max(elements.values())
-            sum_elements = sum(elements.values())
-            if sum_elements - max_in_elements > k:
+            if size - max_in_elements > k:
                 size -= 1
                 elements[q.popleft()] -= 1
             q.append(v)
