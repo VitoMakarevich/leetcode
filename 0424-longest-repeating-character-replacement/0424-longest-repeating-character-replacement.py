@@ -1,25 +1,18 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        
-        l = 0
-        c_frequency = {}
-        longest_str_len = 0
-        for r in range(len(s)):
-            
-            if not s[r] in c_frequency:
-                c_frequency[s[r]] = 0
-            c_frequency[s[r]] += 1
-            
-            # Replacements cost = cells count between left and right - highest frequency
-            cells_count = r - l + 1
-            if cells_count - max(c_frequency.values()) <= k:
-                longest_str_len = max(longest_str_len, cells_count)
-                
-            else:
-                c_frequency[s[l]] -= 1
-                if not c_frequency[s[l]]:
-                    c_frequency.pop(s[l])
-                l += 1
-        
-        return longest_str_len
-		
+        size = 0
+        res = 0
+        elements = {}
+        max_in_elements = 0
+        for i, v in enumerate(s):
+            size += 1
+            elements[v] = elements.get(v, 0) + 1
+            max_in_elements = max(elements[v], max_in_elements)
+            if size - max_in_elements > k:
+                size -= 1
+                f = s[i - size]
+                elements[f] -= 1
+                if v == f:
+                    max_in_elements -= 1
+            res = max(res, size)
+        return res
