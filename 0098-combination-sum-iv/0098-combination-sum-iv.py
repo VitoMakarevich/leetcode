@@ -1,8 +1,7 @@
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
         self.cache = {0: 1}
-        nums.sort()
-        self.filtered = list(filter(lambda x: x <= target, nums))
+        self.filtered = sorted(nums)
 
         return self.count(target)
 
