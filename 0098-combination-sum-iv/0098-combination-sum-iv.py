@@ -6,12 +6,13 @@ class Solution:
 
         return self.count(target)
 
-    @lru_cache
     def count(self, n):
         if n in self.cache:
             return self.cache[n]
         if n < 0:
             return 0
+        if n == 0:
+            return 1
         
         cnt = 0
         for cur in self.filtered:
