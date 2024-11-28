@@ -1,12 +1,25 @@
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
-        cache = [0 for i in range(target + 1)]
+        self.cache = {0: 1}
         nums.sort()
-        filtered = list(filter(lambda x: x <= target, nums))
-        cache[0] = 1
-        for i in range(1, target + 1):
-            for n in filtered:
-                if i - n >= 0:
-                    cache[i] += cache[i - n]
+        self.filtered = list(filter(lambda x: x <= target, nums))
 
-        return cache[target]
+        return self.count(target)
+
+    @lru_cache
+    def count(self, n):
+        if n in self.cache:
+            return self.cache[n]
+        if n < 0:
+            return 0
+        
+        cnt = 0
+        for cur in self.filtered:
+            if n - cur < 0:
+                break
+            cnt += self.count(n - cur)
+        
+        self.cache[n] = cnt
+        return cnt
+
+        
