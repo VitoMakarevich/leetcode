@@ -28,14 +28,8 @@ class Solution:
           while i < len(res_path[0]) and i < len(cur_path) and cur_path[i].val == res_path[0][i].val:
             i += 1
           res_path[0] = res_path[0][0: i]
-      if len(seek_nodes) == 0:
-        return
       if cur_node.left:
         self._dfs(cur_path, res_path, seek_nodes, cur_node.left)
-      if len(seek_nodes) == 0:
-        return
       if cur_node.right:
         self._dfs(cur_path, res_path, seek_nodes, cur_node.right)
-      if len(seek_nodes) == 0:
-        return
       cur_path.pop()
