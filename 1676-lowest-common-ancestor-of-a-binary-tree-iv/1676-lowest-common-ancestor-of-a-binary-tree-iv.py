@@ -33,12 +33,3 @@ class Solution:
       if cur_node.right:
         self._dfs(cur_path, paths, seek_nodes, cur_node.right)
       cur_path.pop()
-
-    def _debug(self, paths):
-      out = []
-      for p in paths:
-        local = []
-        for item in p:
-          local.append(item.val)
-        out.append(local)
-      print(out)
