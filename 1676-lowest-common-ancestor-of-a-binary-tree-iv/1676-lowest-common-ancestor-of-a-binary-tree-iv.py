@@ -12,26 +12,29 @@ class Solution:
           seek_nodes.add(node.val)
         cur = root
         p = deque()
-        paths = deque()
-        self._dfs(p, paths, seek_nodes, root)
-        last_popped = None
-        while min(map(len, paths)) > 0 and len(set(map(lambda x: x[0].val, paths))) == 1:
-          for local_path in paths:
-            last_popped = local_path.popleft()
-        
-        return last_popped
+        res_path = []
+        self._dfs(p, res_path, seek_nodes, root)
+        # print(res_path)
+        return res_path[0][-1]
         
 
-    def _dfs(self, cur_path, paths, seek_nodes, cur_node):
+    def _dfs(self, cur_path, res_path, seek_nodes, cur_node):
       cur_path.append(cur_node)
       if cur_node.val in seek_nodes:
-        paths.append(cur_path.copy())
-      if len(paths) == len(seek_nodes):
+        seek_nodes.remove(cur_node.val)
+        if len(res_path) == 0:
+          res_path.append(cur_path.copy())
+        else:
+          cur_copy = cur_path.copy()
+          new_res = deque()
+          while len(res_path[0]) > 0 and len(cur_copy) > 0 and res_path[0][0].val == cur_copy[0].val:
+            new_res.append(cur_copy.popleft())
+            res_path[0].popleft()
+          res_path[0] = new_res
+      if len(seek_nodes) == 0:
         return
       if cur_node.left:
-        self._dfs(cur_path, paths, seek_nodes, cur_node.left)
-      if len(paths) == len(seek_nodes):
-        return
+        self._dfs(cur_path, res_path, seek_nodes, cur_node.left)
       if cur_node.right:
-        self._dfs(cur_path, paths, seek_nodes, cur_node.right)
+        self._dfs(cur_path, res_path, seek_nodes, cur_node.right)
       cur_path.pop()
