@@ -1,35 +1,31 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
-class Solution:
-    def lowestCommonAncestor(self, root: 'TreeNode', nodes: 'List[TreeNode]') -> 'TreeNode':
-        seek_nodes = set()
-        for node in nodes:
-          seek_nodes.add(node)
-        cur = root
-        p = []
-        res_path = []
-        self._dfs(p, res_path, seek_nodes, root)
-        return TreeNode(res_path[0][-1])
+class Solution(object):
+    def lowestCommonAncestor(self, root, nodes):
+	
+		# Convert to set to do constant time lookup, which saves ~2s on runtime
+        nodes = set(nodes)
+		
+		# This is where we're storing the final answer
+        self.found = None
         
-
-    def _dfs(self, cur_path, res_path, seek_nodes, cur_node):
-      cur_path.append(cur_node.val)
-      if cur_node in seek_nodes:
-        seek_nodes.remove(cur_node)
-        if len(res_path) == 0:
-          res_path.append(cur_path.copy())
-        else:
-          i = 0
-          while i < len(res_path[0]) and i < len(cur_path) and cur_path[i] == res_path[0][i]:
-            i += 1
-          res_path[0] = res_path[0][0: i]
-      if cur_node.left:
-        self._dfs(cur_path, res_path, seek_nodes, cur_node.left)
-      if cur_node.right:
-        self._dfs(cur_path, res_path, seek_nodes, cur_node.right)
-      cur_path.pop()
+        def traverse(root):
+		
+		    # Return if it's not a tree node
+            if root == None:
+                return 0
+            
+			# This finds the number of tree nodes that are in the nodes set
+            foundAncestors = traverse(root.left) + traverse(root.right)
+			
+			# A node is a descendant of itself, so if the root is in the nodes set we add 1
+            if root in nodes:
+                foundAncestors += 1
+			
+			# This means that every node in the nodes set is an ancestor
+            if foundAncestors == len(nodes):
+			    # set the value of self.found to root if self.found != None
+                self.found = self.found or root
+				
+            return foundAncestors
+        
+        traverse(root)
+        return self.found
