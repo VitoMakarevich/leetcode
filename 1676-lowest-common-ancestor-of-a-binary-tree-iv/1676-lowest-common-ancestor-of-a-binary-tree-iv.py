@@ -14,18 +14,18 @@ class Solution:
         p = []
         res_path = []
         self._dfs(p, res_path, seek_nodes, root)
-        return res_path[0][-1]
+        return TreeNode(res_path[0][-1])
         
 
     def _dfs(self, cur_path, res_path, seek_nodes, cur_node):
-      cur_path.append(cur_node)
+      cur_path.append(cur_node.val)
       if cur_node.val in seek_nodes:
         seek_nodes.remove(cur_node.val)
         if len(res_path) == 0:
           res_path.append(cur_path.copy())
         else:
           i = 0
-          while i < len(res_path[0]) and i < len(cur_path) and cur_path[i].val == res_path[0][i].val:
+          while i < len(res_path[0]) and i < len(cur_path) and cur_path[i] == res_path[0][i]:
             i += 1
           res_path[0] = res_path[0][0: i]
       if cur_node.left:
