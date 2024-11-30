@@ -32,6 +32,10 @@ class Solution:
         return
       if cur_node.left:
         self._dfs(cur_path, res_path, seek_nodes, cur_node.left)
+      if len(seek_nodes) == 0:
+        return
       if cur_node.right:
         self._dfs(cur_path, res_path, seek_nodes, cur_node.right)
+      if len(seek_nodes) == 0:
+        return
       cur_path.pop()
