@@ -1,7 +1,5 @@
 class Solution:
     def makePalindrome(self, s: str) -> bool:
-      if len(s) == 1:
-        return True
       center = len(s) // 2
       left = center if len(s) % 2 == 1 else center - 1
       right = center
