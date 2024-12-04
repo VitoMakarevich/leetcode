@@ -1,8 +1,12 @@
 class Solution:
     def minimumTime(self, jobs: List[int], workers: List[int]) -> int:
-        j_s = sorted(jobs, reverse=True)
-        w_s = sorted(workers, reverse = True)
+        j_hq = []
+        w_hq = []
         r = float('-inf')
-        for i in range(len(jobs)):
-          r = max(r, int(ceil(j_s[i] / w_s[i])))
+        for v in jobs:
+          heapq.heappush(j_hq, -v)
+        for v in workers:
+          heapq.heappush(w_hq, -v)
+        while len(j_hq) > 0:
+          r = max(r, int(ceil(heapq.heappop(j_hq) / heapq.heappop(w_hq))))
         return r
