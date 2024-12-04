@@ -4,10 +4,5 @@ class Solution:
         workers.sort(reverse = True)
         r = float('-inf')
         for i in range(len(jobs)):
-          local_r = 0
-          if jobs[i] <= workers[i]:
-            local_r = 1
-          else:
-            local_r = ceil(jobs[i] / workers[i])
-          r = max(r, local_r)
+          r = max(r, int(ceil(jobs[i] / workers[i])))
         return r
