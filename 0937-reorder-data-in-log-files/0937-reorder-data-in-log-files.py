@@ -2,40 +2,45 @@ class Solution:
     def reorderLogFiles(self, logs: List[str]) -> List[str]:
       aux = [0] * len(logs)
       mapped = list(map(LogItem, logs))
-      sorted_arr = self._sort(mapped, aux)
-      res = list(map(lambda x: x._l, sorted_arr))
+      self._sort(mapped, aux, 0 , len(logs) - 1)
+      res = list(map(lambda x: x._l, mapped))
       return res
 
-    def _sort(self, arr_to_sort, aux):
-      if len(arr_to_sort) > 1:
-        mid = len(arr_to_sort) // 2
-        left = self._sort(arr_to_sort[:mid], aux)
-        right = self._sort(arr_to_sort[mid:], aux)
-        return self._merge(left, right)
-      else:
-        return arr_to_sort
+    def _sort(self, arr_to_sort, aux, low, high):
 
-    def _merge(self, left, right):
-        left_ptr = 0
-        right_ptr = 0
-        res = 0
-        merged = []
-        while left_ptr < len(left) and right_ptr < len(right):
-          l_cand = left[left_ptr]
-          r_cand = right[right_ptr]
+      if low < high:
+        mid = (low + high) // 2
+        self._sort(arr_to_sort, aux, low, mid)
+        self._sort(arr_to_sort, aux, mid + 1, high)
+        self._merge(arr_to_sort, aux, low, mid, high)
+      return arr_to_sort
+
+    def _merge(self, arr, aux, low, mid, high):
+        for i in range(low, high + 1):
+          aux[i] = arr[i]
+        left_ptr = low
+        right_ptr = mid + 1
+        res = low
+        while left_ptr <= mid and right_ptr <= high:
+          l_cand = aux[left_ptr]
+          r_cand = aux[right_ptr]
           
           cmp_res = self._compare(l_cand, r_cand)
-          # print(f"for {l_cand._l} and {r_cand._l} res is {cmp_res}")
           if cmp_res <= 0:
-            merged.append(l_cand)
+            arr[res] = l_cand
             left_ptr += 1
           else:
-            merged.append(r_cand)
+            arr[res] = r_cand
             right_ptr += 1
           res += 1
-        merged.extend(left[left_ptr:])
-        merged.extend(right[right_ptr:])
-        return merged
+        while left_ptr <= mid:
+          arr[res] = aux[left_ptr]
+          left_ptr += 1
+          res += 1
+        while right_ptr <= high:
+          arr[res] = aux[right_ptr]
+          right_ptr += 1
+          res += 1
 
     def _compare(self,left, right):
       if not left._is_letter and not right._is_letter:
