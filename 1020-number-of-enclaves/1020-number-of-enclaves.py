@@ -19,6 +19,8 @@ class Solution:
         return total_size - count_zeros - len(visited)
         
     def _dfs(self, coord, visited, rows, cols, grid):
+      if coord in visited:
+        return
       visited.add(coord)
       for direction in self.get_valid_directions(coord[0], coord[1], rows, cols):
         if not direction in visited and grid[direction[0]][direction[1]] == 1:
