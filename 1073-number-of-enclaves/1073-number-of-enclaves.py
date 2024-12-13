@@ -4,15 +4,9 @@ class Solution:
         rows, columns = len(grid), len(grid[0])
         total_size = rows * columns
         for i in range(rows):
-          if grid[i][0] == 1:
-            self._dfs((i, 0), rows, columns, grid)
-          if grid[i][columns - 1] == 1:
-            self._dfs((i, columns - 1), rows, columns, grid)
-        for j in range(columns):
-          if grid[0][j] == 1:
-            self._dfs((0, j), rows, columns, grid)
-          if grid[rows - 1][j] == 1:
-            self._dfs((rows - 1, j), rows, columns, grid)
+          for j in range(columns):
+            if grid[i][j] == 1 and (i == 0 or j == 0 or i == rows - 1 or j == columns - 1):
+              self._dfs((i, j), rows, columns, grid)
         return sum(sum(row) for row in grid)
         
     def _dfs(self, coord, rows, cols, grid):
