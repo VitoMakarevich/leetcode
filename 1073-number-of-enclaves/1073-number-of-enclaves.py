@@ -1,17 +1,22 @@
 class Solution:
     def numEnclaves(self, grid: List[List[int]]) -> int:
-        self.directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
-        rows, columns = len(grid), len(grid[0])
-        total_size = rows * columns
-        for i in range(rows):
-          for j in range(columns):
-            if grid[i][j] == 1 and (i == 0 or j == 0 or i == rows - 1 or j == columns - 1):
-              self._dfs((i, j), rows, columns, grid)
-        return sum(sum(row) for row in grid)
-        
-    def _dfs(self, coord, rows, cols, grid):
-      grid[coord[0]][coord[1]] = 0
-      i, j = coord
-      for direction in (i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1):
-        if 0 <= direction[0] < rows and 0 <= direction[1] < cols and grid[direction[0]][direction[1]]:
-          self._dfs(direction, rows, cols, grid)
+        n=len(grid)
+        m=len(grid[0])
+        def dfs(i,j):
+            if i==-1 or j==-1 or i==n or j==m or grid[i][j]==0:
+                return 
+            grid[i][j]=0
+            dfs(i+1,j)
+            dfs(i-1,j)
+            dfs(i,j+1)
+            dfs(i,j-1)
+
+        for i in range(n):
+            for j in range(m):
+                if (i==0 or j==0 or n-1==i or m-1==j) and grid[i][j]==1:
+                    dfs(i,j)
+        s=0
+        for i in range(n):
+            for j in range(m):
+                s+=grid[i][j]
+        return s
