@@ -11,8 +11,9 @@ class Solution:
         
     def _dfs(self, coord, rows, cols, grid):
       grid[coord[0]][coord[1]] = 0
-      for direction in self.get_valid_directions(coord[0], coord[1], rows, cols):
-        if grid[direction[0]][direction[1]] == 1:
+      i, j = coord
+      for direction in (i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1):
+        if 0 <= direction[0] < rows and 0 <= direction[1] < cols and grid[direction[0]][direction[1]]:
           self._dfs(direction, rows, cols, grid)
 
     def get_valid_directions(self, x, y, rows, cols):
