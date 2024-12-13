@@ -15,13 +15,3 @@ class Solution:
       for direction in (i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1):
         if 0 <= direction[0] < rows and 0 <= direction[1] < cols and grid[direction[0]][direction[1]]:
           self._dfs(direction, rows, cols, grid)
-
-    def get_valid_directions(self, x, y, rows, cols):
-      valid_directions = []
-      
-      for dx, dy in self.directions:
-          nx, ny = x + dx, y + dy
-          if 0 <= nx < rows and 0 <= ny < cols:
-              valid_directions.append((nx, ny))
-      
-      return valid_directions
