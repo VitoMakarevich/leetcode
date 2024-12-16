@@ -1,17 +1,20 @@
 class Solution:
-    def findUnsortedSubarray(self, nums: List[int]) -> int:
-        
-        l,u = len(nums)-1, 0
-        stck=[]
-        for i in range(len(nums)):
-            while stck and nums[stck[-1]]>nums[i]:
-                l = min(l, stck.pop())
-            stck.append(i)
-        
-        stck=[]        
-        for i in range(len(nums)-1,-1, -1):
-            while stck and nums[stck[-1]]<nums[i]:
-                u = max(u, stck.pop())
-            stck.append(i)
-        
-        return 0 if l>=u else u-l+1
+  def findUnsortedSubarray(self, a: List[int]) -> int:
+        n = len(a)
+        r, mx = -1, -1e6
+
+        for i in range(n):
+            if a[i] >= mx:
+                mx = a[i]
+            else:
+                r = i
+
+        l, mn = n, 1e6
+
+        for i in range(n - 1, -1, -1):
+            if a[i] <= mn:
+                mn = a[i]
+            else:
+                l = i
+
+        return max(0, r - l + 1)
