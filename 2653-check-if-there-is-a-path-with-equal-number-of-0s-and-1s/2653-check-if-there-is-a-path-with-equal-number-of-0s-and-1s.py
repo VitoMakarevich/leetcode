@@ -1,16 +1,30 @@
 class Solution:
-    def isThereAPath(self, grid: List[List[int]]) -> bool:
-      rows, cols = len(grid), len(grid[0])
-      @cache
-      def is_a_path(x, y, path_sum):
-        cur_price = -1 if grid[x][y] == 0 else 1
-        if x == rows - 1 and y == cols - 1:
-          return path_sum + cur_price == 0
-        else:
-          return (x + 1 < rows and is_a_path(x + 1, y, path_sum + cur_price)) or (
-            y + 1 < cols and is_a_path(x, y + 1, path_sum + cur_price)
-          )
-      res = is_a_path(0, 0, 0)
-      return res
-        
-    
+    def isThereAPath(self, grid: list[list[int]]) -> bool:
+        rows, cols = len(grid), len(grid[0])
+
+        if (rows + cols) % 2 == 0:
+            return False
+
+        min_ = [[0] * cols for _ in range(rows)]
+        max_ = [[0] * cols for _ in range(rows)]
+
+        min_[0][0] = max_[0][0] = grid[0][0]
+
+        for row in range(1, rows):
+            min_[row][0] = min_[row - 1][0] + grid[row][0]
+            max_[row][0] = max_[row - 1][0] + grid[row][0]
+
+        for col in range(1, cols):
+            min_[0][col] = min_[0][col - 1] + grid[0][col]
+            max_[0][col] = max_[0][col - 1] + grid[0][col]
+
+        for row in range(1, rows):
+            for col in range(1, cols):
+                min_prev = min(min_[row - 1][col], min_[row][col - 1])
+                min_[row][col] = min_prev + grid[row][col]
+
+                max_prev = max(max_[row - 1][col], max_[row][col - 1])
+                max_[row][col] = max_prev + grid[row][col]
+
+        target = (rows + cols - 1) // 2
+        return min_[rows - 1][cols - 1] <= target <= max_[rows - 1][cols - 1]
