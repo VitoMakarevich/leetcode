@@ -7,8 +7,7 @@ class Solution:
             if v:
               if self.local_zeros >= 3:
                 self.cnt += 1
-                if self.local_zeros > 3:
-                  self.cnt += int(floor((self.local_zeros - 3) / 2))
+                self.cnt += max(0, int(floor((self.local_zeros - 3) / 2)))
               self.local_zeros = 0
             else:
               self.local_zeros += 1
