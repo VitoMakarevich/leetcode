@@ -1,11 +1,16 @@
 import time
 
+EMPTY_LIST = []
+
 class GraphNode:
   def __init__(self, color):
     self.color = color
-    self.adj = []
+    self.adj = EMPTY_LIST
   def add_adj(self, adj):
-    self.adj.append(adj)
+    if self.adj is EMPTY_LIST:
+      self.adj = [adj]
+    else:
+      self.adj.append(adj)
 def measure(func):
   def wrapper(*args, **kwargs):
       start_time = time.perf_counter()
@@ -15,13 +20,13 @@ def measure(func):
       return result
   return wrapper
 
+
 class Solution:
 
     # topological sort
     # detect loops
     # if no loops - DP from each topological sort start for longest path and path color count
-    def largestPathValue(self, colors: str, edges: List[List[int]]) -> int:
-      
+    def largestPathValue(self, colors: str, edges: List[List[int]]) -> int:      
       self.graph = self.build_graph(colors, edges)
       roots = self.topological_sort(self.graph, colors)
       r = self.detect_loops_root(roots)
