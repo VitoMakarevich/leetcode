@@ -38,7 +38,8 @@ class Solution:
     def longest_path_root(self, roots):
       res = (-1, 'a')
       for root in roots:
-        root_max = self.longest_path(root)
+        cache = {}
+        root_max = self.longest_path(root, cache)
         for color, count in root_max.items():
           if count > res[0]:
             res = (count, color)
@@ -77,15 +78,16 @@ class Solution:
       path.remove(cur_id)
       return False
 
-    @cache
-    def longest_path(self, cur):
-      node = self.graph[cur]
-      cum_res = {}
-      for adj in node.adj:
-        candidate = self.longest_path(adj)
-        for color, count in candidate.items():
-            cum_res[color] = max(count, cum_res.get(color, 0))
-      cum_res[node.color] = cum_res.get(node.color, 0) + 1
+    def longest_path(self, cur, cache):
+      if not cur in cache:
+        node = self.graph[cur]
+        cum_res = {}
+        for adj in node.adj:
+          candidate = self.longest_path(adj, cache)
+          for color, count in candidate.items():
+              cum_res[color] = max(count, cum_res.get(color, 0))
+        cum_res[node.color] = cum_res.get(node.color, 0) + 1
 
-      return cum_res
+        cache[cur] = cum_res
+      return cache[cur]
 
