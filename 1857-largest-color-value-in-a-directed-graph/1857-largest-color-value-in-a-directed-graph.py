@@ -62,8 +62,6 @@ class Solution:
 
     @measure
     def detect_loops_root(self, roots):
-      if len(roots) == 0:
-        return -1
       visited = set()
       for root in roots:
         res = self.detect_loops(self.graph[root], root, set(), visited)
