@@ -11,14 +11,6 @@ class GraphNode:
       self.adj = [adj]
     else:
       self.adj.append(adj)
-def measure(func):
-  def wrapper(*args, **kwargs):
-      start_time = time.perf_counter()
-      result = func(*args, **kwargs)
-      end_time = time.perf_counter()
-      print(f"Execution time: {end_time - start_time:.5f} s")
-      return result
-  return wrapper
 
 
 class Solution:
