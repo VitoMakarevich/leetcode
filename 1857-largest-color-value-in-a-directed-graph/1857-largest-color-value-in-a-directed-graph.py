@@ -71,16 +71,15 @@ class Solution:
         return -1
       
     def detect_loops(self, cur, cur_id, path, visited):
-      if cur_id in visited:
-        return False
       visited.add(cur_id)
       path.add(cur_id)
       for adj in cur.adj:
         if adj in path:
           return True
-        loop_in_this = self.detect_loops(self.graph[adj], adj, path, visited)
-        if loop_in_this:
-          return True
+        if not adj in visited:
+          loop_in_this = self.detect_loops(self.graph[adj], adj, path, visited)
+          if loop_in_this:
+            return True
       path.remove(cur_id)
       return False
 
