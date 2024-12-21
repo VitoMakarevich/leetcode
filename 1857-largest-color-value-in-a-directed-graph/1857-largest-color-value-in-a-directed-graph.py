@@ -34,7 +34,7 @@ class Solution:
       if r == -1:
         return -1
       return self.longest_path_root(roots)
-    @measure
+
     def build_graph(self, colors, edges):
       graph = []
       for color in colors:
@@ -43,7 +43,6 @@ class Solution:
         graph[edge[0]].add_adj(edge[1])
       return graph
 
-    @measure
     def longest_path_root(self, roots):
       res = (-1, 'a')
       for root in roots:
@@ -53,7 +52,6 @@ class Solution:
             res = (count, color)
       return res[0]
 
-    @measure
     def topological_sort(self, graph, colors):
       visited = set()
       for node in graph:
@@ -65,7 +63,6 @@ class Solution:
           roots.add(i)
       return roots
 
-    @measure
     def detect_loops_root(self, roots):
       visited = set()
       for root in roots:
