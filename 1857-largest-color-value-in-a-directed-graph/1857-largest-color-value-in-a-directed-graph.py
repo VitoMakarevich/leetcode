@@ -80,19 +80,12 @@ class Solution:
     @cache
     def longest_path(self, cur):
       node = self.graph[cur]
-      candidates = []
+      cum_res = {}
       for adj in node.adj:
         candidate = self.longest_path(adj)
-        candidates.append(candidate)
-      if len(candidates):
-        cum_res = {}
-        for cand in candidates:
-          for color, count in cand.items():
+        for color, count in candidate.items():
             cum_res[color] = max(count, cum_res.get(color, 0))
-        cum_res[node.color] = cum_res.get(node.color, 0) + 1
-        return cum_res
-      else:
-        return {
-          node.color: 1
-        }
+      cum_res[node.color] = cum_res.get(node.color, 0) + 1
+
+      return cum_res
 
