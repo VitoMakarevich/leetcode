@@ -19,25 +19,9 @@ class Solution:
           options = options[1:]
          
           res = master.guess(next_guess)
-          # if len(last_options):
-          #   print(next_guess, res, self._matches_per_prev(next_guess, last_options), self.number_of_mismatches(next_guess, last_options))
-          # else:
-          #   print(next_guess, res)
           if res == 6:
             return
           last_options.append((res, next_guess))
-    def _matches_per_prev(self, candidate, prev):
-      res = []
-      for v in prev:
-        res.append(self.position_match(v[1], candidate))
-      return res
-
-    def number_of_mismatches(self, candidate, prev):
-      m = 0
-
-      for v in prev:
-        m += 6 - self.position_match(v[1], candidate)
-      return m
 
     def _calculate_dict_popularity(self, candidates):
       res = []
@@ -54,16 +38,14 @@ class Solution:
       return r
 
     def accepted(self, candidate, prev):
-      for v in prev:
-        matches, word = v
-        mismatches = 6 - matches
-        
-        positional_matches = self.position_match(candidate, word)
-        positional_mismatches = 6 - positional_matches
-        # if more than prev match - throw away
-        # if less than prev match - throw away
-        if positional_matches < matches or mismatches > positional_mismatches:
-          return False
+      v = prev[-1]
+      matches, word = v
+      mismatches = 6 - matches
+      
+      positional_matches = self.position_match(candidate, word)
+      positional_mismatches = 6 - positional_matches
+      if positional_matches < matches or mismatches > positional_mismatches:
+        return False
       return True
 
     def position_match(self, left, right):
