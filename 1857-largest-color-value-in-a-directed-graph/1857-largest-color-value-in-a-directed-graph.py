@@ -2,15 +2,6 @@ import time
 
 EMPTY_LIST = []
 
-class GraphNode:
-  def __init__(self, color):
-    self.color = color
-    self.adj = EMPTY_LIST
-  def add_adj(self, adj):
-    if self.adj is EMPTY_LIST:
-      self.adj = [adj]
-    else:
-      self.adj.append(adj)
 def measure(func):
   def wrapper(*args, **kwargs):
       start_time = time.perf_counter()
@@ -38,9 +29,14 @@ class Solution:
     def build_graph(self, colors, edges):
       graph = []
       for color in colors:
-        graph.append(GraphNode(color))
+        graph.append((color, EMPTY_LIST))
       for edge in edges:
-        graph[edge[0]].add_adj(edge[1])
+        source = graph[edge[0]]
+        if source[1] is EMPTY_LIST:
+          graph[edge[0]] = (source[0], [edge[1]])
+        else:
+          source[1].append(edge[1])
+        
       return graph
 
     @measure
@@ -57,7 +53,7 @@ class Solution:
     def topological_sort(self, graph, colors):
       visited = set()
       for node in graph:
-        for adj in node.adj:
+        for adj in node[1]:
           visited.add(adj)
       roots = set()
       for i in range(len(colors)):
@@ -78,7 +74,7 @@ class Solution:
     def detect_loops(self, cur, cur_id, path, visited):
       visited.add(cur_id)
       path.add(cur_id)
-      for adj in cur.adj:
+      for adj in cur[1]:
         if adj in path:
           return True
         if not adj in visited:
@@ -92,7 +88,7 @@ class Solution:
     def longest_path(self, cur):
       node = self.graph[cur]
       candidates = []
-      for adj in node.adj:
+      for adj in node[1]:
         candidate = self.longest_path(adj)
         candidates.append(candidate)
       if len(candidates):
@@ -100,10 +96,10 @@ class Solution:
         for cand in candidates:
           for color, count in cand.items():
             cum_res[color] = max(count, cum_res.get(color, 0))
-        cum_res[node.color] = cum_res.get(node.color, 0) + 1
+        cum_res[node[0]] = cum_res.get(node[0], 0) + 1
         return cum_res
       else:
         return {
-          node.color: 1
+          node[0]: 1
         }
 
