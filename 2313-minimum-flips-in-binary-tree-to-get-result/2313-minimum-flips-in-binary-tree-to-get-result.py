@@ -6,42 +6,56 @@
 #         self.right = right
 class Solution:
     def minimumFlips(self, root: Optional[TreeNode], result: bool) -> int:
-        return self._dp({}, root, result)
+        return self._dp(root, result)
 
-    def _dp(self, cache, root, needed_result):
-      if not root in cache or not needed_result in cache[root]:
-        if not root in cache:
-          cache[root] = {}
-        if not needed_result in cache[root]:
+    @cache
+    def _dp(self, root, needed_result):
           if root.val == 0 or root.val == 1:
-            cache[root][needed_result] = int(not needed_result == bool(root.val))
+            return int(not needed_result == bool(root.val))
           elif root.val == 2:
             if needed_result:
-              left_count = self._dp(cache, root.left, needed_result)
-              right_count = self._dp(cache, root.right, needed_result)
-              cache[root][needed_result] = min(left_count, right_count)
+              left_count = self._dp(root.left, needed_result)
+              if left_count == 0:
+                return 0
+              right_count = self._dp(root.right, needed_result)
+              if right_count == 0:
+                return 0
+              return min(left_count, right_count)
             else:
-              cache[root][needed_result] = self._dp(cache, root.left, needed_result) + self._dp(cache, root.right, needed_result)
+              return self._dp(root.left, needed_result) + self._dp(root.right, needed_result)
           elif root.val == 3:
             if needed_result:
-              left_count = self._dp(cache, root.left, needed_result)
-              right_count = self._dp(cache, root.right, needed_result)
-              cache[root][needed_result] = left_count + right_count
+              left_count = self._dp(root.left, needed_result)
+              right_count = self._dp(root.right, needed_result)
+              return left_count + right_count
             else:
-              cache[root][needed_result] = min(self._dp(cache, root.left, needed_result), self._dp(cache, root.right, needed_result))
+              left_count = self._dp(root.left, needed_result)
+              if left_count == 0:
+                return 0
+              right_count = self._dp(root.right, needed_result)
+              if right_count == 0:
+                return 0
+              return min(left_count, right_count)
           elif root.val == 4:
             candidates = []
             if needed_result:
-              candidates.append(self._dp(cache, root.left, True) + self._dp(cache, root.right, False))
-              candidates.append(self._dp(cache, root.left, False) + self._dp(cache, root.right, True))
+              left_count = self._dp(root.left, True) + self._dp(root.right, False)
+              if left_count == 0:
+                return 0
+              right_count = self._dp(root.left, False) + self._dp(root.right, True)
+              if right_count == 0:
+                return 0
+              return min(left_count, right_count)
             else:
-              candidates.append(self._dp(cache, root.left, False) + self._dp(cache, root.right, False))
-              candidates.append(self._dp(cache, root.left, True) + self._dp(cache, root.right, True))
-            cache[root][needed_result] = min(candidates)
+              left_count = self._dp(root.left, False) + self._dp(root.right, False)
+              if left_count == 0:
+                return 0
+              right_count = self._dp(root.left, True) + self._dp(root.right, True)
+              if right_count == 0:
+                return 0
+              return min(left_count, right_count)
           else:
             if root.left:
-              cache[root][needed_result] = self._dp(cache, root.left, not needed_result)
+              return self._dp(root.left, not needed_result)
             else:
-              cache[root][needed_result] = self._dp(cache, root.right, not needed_result)
-
-      return cache[root][needed_result]
+              return self._dp(root.right, not needed_result)
