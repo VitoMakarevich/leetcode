@@ -30,14 +30,14 @@ class Solution:
             else:
               cache[root][needed_result] = min(self._dp(cache, root.left, needed_result), self._dp(cache, root.right, needed_result))
           elif root.val == 4:
+            candidates = []
             if needed_result:
-              if_10 = self._dp(cache, root.left, True) + self._dp(cache, root.right, False)
-              if_01 = self._dp(cache, root.left, False) + self._dp(cache, root.right, True)
-              cache[root][needed_result] = min(if_10, if_01)
+              candidates.append(self._dp(cache, root.left, True) + self._dp(cache, root.right, False))
+              candidates.append(self._dp(cache, root.left, False) + self._dp(cache, root.right, True))
             else:
-              if_00 = self._dp(cache, root.left, False) + self._dp(cache, root.right, False)
-              if_11 = self._dp(cache, root.left, True) + self._dp(cache, root.right, True)
-              cache[root][needed_result] = min(if_00, if_11)
+              candidates.append(self._dp(cache, root.left, False) + self._dp(cache, root.right, False))
+              candidates.append(self._dp(cache, root.left, True) + self._dp(cache, root.right, True))
+            cache[root][needed_result] = min(candidates)
           else:
             if root.left:
               cache[root][needed_result] = self._dp(cache, root.left, not needed_result)
