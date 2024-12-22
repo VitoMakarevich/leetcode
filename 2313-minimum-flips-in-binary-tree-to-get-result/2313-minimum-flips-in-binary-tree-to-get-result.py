@@ -9,11 +9,13 @@ class Solution:
       return self._dp_cached({}, root, result)
 
     def _dp_cached(self, cache, root, needed_result):
-      if not root in cache:
-        cache[root] = {}
-      if not needed_result in cache[root]:
-        cache[root][needed_result] = self._dp(cache, root, needed_result)
-      return cache[root][needed_result]
+        if root not in cache:
+          cache[root] = [None, None]
+        index = int(needed_result)
+        if cache[root][index] is None:
+          cache[root][index] = self._dp(cache, root, needed_result)
+        return cache[root][index]
+
 
     def _dp(self, cache, root, needed_result):
       if root.val == 0 or root.val == 1:
