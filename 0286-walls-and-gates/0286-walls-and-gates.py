@@ -1,4 +1,5 @@
 EMPTY = 2147483647
+TODO = -1
 class Solution:
     def wallsAndGates(self, rooms: List[List[int]]) -> None:
         """
@@ -15,10 +16,11 @@ class Solution:
         while len(q):
           for m in range(len(q)):
             i, j = q.popleft()
-            if rooms[i][j] == EMPTY:
-              rooms[i][j] = c
+            
+            rooms[i][j] = c
             for neigh_i, neigh_j in [(i - 1, j), (i + 1, j), (i, j + 1), (i, j - 1)]:
               if neigh_i >= 0 and neigh_j >= 0 and neigh_i < len(rooms) and neigh_j < len(rooms[0]) and rooms[neigh_i][neigh_j] == EMPTY:
+                rooms[neigh_i][neigh_j] = TODO
                 q.append((neigh_i, neigh_j))
           c += 1
         
