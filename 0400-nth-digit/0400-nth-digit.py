@@ -1,6 +1,5 @@
 class Solution:
     def findNthDigit(self, n) -> List[int]:
-        cp_n = n
         number_of_digits = 1
         count_of_digits_with_this_number_of_digits = 9 * pow(10, number_of_digits - 1)
         count_of_total_digits = count_of_digits_with_this_number_of_digits * number_of_digits
