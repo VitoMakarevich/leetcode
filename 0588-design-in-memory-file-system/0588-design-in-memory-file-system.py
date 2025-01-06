@@ -8,15 +8,16 @@ class Directory(Entry):
   def __init__(self):
     self._entries = EMPTY_MAP
   
-  def add_entry(self, name, entry):
+  def __setitem__(self, name, entry):
     if self._entries is EMPTY_MAP:
       self._entries = {}
     self._entries[name] = entry
 
-  def get_entry(self, name):
+  def __getitem__(self, name):
     return self._entries.get(name)
 
-  def get_entries_names(self):
+  @property
+  def entries_names(self):
     return self._entries.keys()
 
 class File(Entry):
@@ -41,32 +42,32 @@ class FileSystem:
         f = self._root
         if not (len(parts) == 1 and parts[0] == ''):
           for p in parts:
-            e = f.get_entry(p)
+            e = f[p]
             if isinstance(e, File):
               return [p]
             f = e
-        return sorted(f.get_entries_names())
+        return sorted(f.entries_names)
         
 
     def mkdir(self, path: str) -> None:
         parts = path.split(PATH_SEPARATOR)[1:]
         f = self._root
         for p in parts:
-          e = f.get_entry(p)
+          e = f[p]
           if not e:
             e = Directory()
-            f.add_entry(p, e)
+            f[p] = e
           f = e
 
     def addContentToFile(self, filePath: str, content: str) -> None:
         parts = filePath.split(PATH_SEPARATOR)[1:]
         f = self._root
         for p in parts[:-1]:
-          f = f.get_entry(p)
+          f = f[p]
         filename = parts[len(parts) - 1]
-        file = f.get_entry(filename)
+        file = f[filename]
         if not file:
-          f.add_entry(filename, File(content))
+          f[filename] = File(content)
         else:
           file.add_content(content)
 
@@ -74,7 +75,7 @@ class FileSystem:
         parts = filePath.split(PATH_SEPARATOR)[1:]
         f = self._root
         for p in parts:
-          f = f.get_entry(p)
+          f = f[p]
         return f.content
         
 
