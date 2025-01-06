@@ -9,11 +9,10 @@ class Solution:
           if len(pq) == 0 or pq[0] > interval[0]:
             heapq.heappush(pq, interval[1])
           else:
-            if pq[0] <= interval[0]:
-              res = max(len(pq), res)
-              while pq and pq[0] <= interval[0]:
-                heapq.heappop(pq)
-              heapq.heappush(pq, interval[1])
+            res = max(len(pq), res)
+            while pq and pq[0] <= interval[0]:
+              heapq.heappop(pq)
+            heapq.heappush(pq, interval[1])
         return res
 
     @staticmethod
