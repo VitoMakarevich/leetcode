@@ -5,7 +5,7 @@ class Solution:
         intervals.sort(key=cmp_to_key(Solution.compare))
         pq = []
         res = 0
-        for interval in intervals + [(float('inf'), float('inf'))]:
+        for interval in intervals + [(100000000, 100000000)]:
           if len(pq) == 0 or pq[0] > interval[0]:
             heapq.heappush(pq, interval[1])
           else:
@@ -23,9 +23,5 @@ class Solution:
       elif left[1] > right[1]:
         return 1
       else:
-        if right[0] < right[1]:
-          return 1
-        elif right[0] > right[1]:
-          return -1
         return 0
       
