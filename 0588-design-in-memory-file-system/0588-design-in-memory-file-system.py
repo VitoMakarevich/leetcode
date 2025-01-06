@@ -1,54 +1,81 @@
+PATH_SEPARATOR = "/"
+EMPTY_MAP = {}
+
 class Entry:
-  def __init__(self, is_dir):
-    self._is_dir = is_dir
-    self._entries = {}
-    self._content = ""
+  pass
+
+class Directory(Entry):
+  def __init__(self):
+    self._entries = EMPTY_MAP
+  
+  def add_entry(self, name, entry):
+    if self._entries is EMPTY_MAP:
+      self._entries = {}
+    self._entries[name] = entry
+
+  def get_entry(self, name):
+    return self._entries.get(name)
+
+  def get_entries_names(self):
+    return self._entries.keys()
+
+class File(Entry):
+  def __init__(self, content):
+    self._content = content
+
   def add_content(self, content):
-    if self._content == "":
-      self._content = content
-    else:
-      self._content += content
+    self._content += content
+  
+  @property
+  def content(self):
+    return self._content
+
 
 class FileSystem:
 
     def __init__(self):
-        self.root = Entry(True)
+        self._root = Directory()
 
     def ls(self, path: str) -> List[str]:
-        parts = path.split('/')[1:]
-        f = self.root
+        parts = path.split(PATH_SEPARATOR)[1:]
+        f = self._root
         if not (len(parts) == 1 and parts[0] == ''):
           for p in parts:
-            f = f._entries[p]
-            if not f._is_dir:
+            e = f.get_entry(p)
+            if isinstance(e, File):
               return [p]
-        return sorted(f._entries.keys())
+            f = e
+        return sorted(f.get_entries_names())
         
 
     def mkdir(self, path: str) -> None:
-        parts = path.split('/')[1:]
-        f = self.root
+        parts = path.split(PATH_SEPARATOR)[1:]
+        f = self._root
         for p in parts:
-          if not p in f._entries:
-            f._entries[p] = Entry(True)
-          f = f._entries[p]
+          e = f.get_entry(p)
+          if not e:
+            e = Directory()
+            f.add_entry(p, e)
+          f = e
 
     def addContentToFile(self, filePath: str, content: str) -> None:
-        parts = filePath.split('/')[1:]
-        f = self.root
+        parts = filePath.split(PATH_SEPARATOR)[1:]
+        f = self._root
         for p in parts[:-1]:
-          f = f._entries[p]
+          f = f.get_entry(p)
         filename = parts[len(parts) - 1]
-        if filename not in f._entries:
-          f._entries[filename] = Entry(False)
-        f._entries[filename].add_content(content)
+        file = f.get_entry(filename)
+        if not file:
+          f.add_entry(filename, File(content))
+        else:
+          f.add_content(content)
 
     def readContentFromFile(self, filePath: str) -> str:
-        parts = filePath.split('/')[1:]
-        f = self.root
+        parts = filePath.split(PATH_SEPARATOR)[1:]
+        f = self._root
         for p in parts:
-          f = f._entries[p]
-        return f._content
+          f = f.get_entry(p)
+        return f.content
         
 
 
