@@ -20,6 +20,8 @@ class FileSystem:
         if not (len(parts) == 1 and parts[0] == ''):
           for p in parts:
             f = f._entries[p]
+            if not f._is_dir:
+              return [p]
         return sorted(f._entries.keys())
         
 
