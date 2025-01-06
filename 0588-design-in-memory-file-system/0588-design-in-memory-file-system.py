@@ -68,7 +68,7 @@ class FileSystem:
         if not file:
           f.add_entry(filename, File(content))
         else:
-          f.add_content(content)
+          file.add_content(content)
 
     def readContentFromFile(self, filePath: str) -> str:
         parts = filePath.split(PATH_SEPARATOR)[1:]
