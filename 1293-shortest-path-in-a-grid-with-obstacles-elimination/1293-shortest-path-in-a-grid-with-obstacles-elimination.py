@@ -14,10 +14,6 @@ class Solution:
             return turn
           for neigh_i, neigh_j in [(i - 1, j), (i + 1, j), (i, j + 1), (i, j - 1)]:
             if neigh_i >= 0 and neigh_i < rows and neigh_j >= 0 and neigh_j < cols:
-              try:
-                grid[neigh_i][neigh_j]
-              except BaseException:
-                print(neigh_i, neigh_j)
               if grid[neigh_i][neigh_j] == 1 and obstacles > 0:
                 next_step = ((neigh_i, neigh_j), obstacles - 1)
                 if not next_step in visited:
