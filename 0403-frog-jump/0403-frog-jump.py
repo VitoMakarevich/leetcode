@@ -1,16 +1,16 @@
 class Solution:
     def canCross(self, stones: List[int]) -> bool:
       self._stones = stones
-      self._cache = {}
+      self._cache = [{} for i in range(len(stones))]
       return self.internal(0, 0)
     
     
     def internal(self, pos, prev_jump):
       item = (pos, prev_jump)
-      if not item in self._cache:
+      if not prev_jump in self._cache[pos]:
         next_jump_options = None
         if pos == len(self._stones) - 1:
-          self._cache[item] = True
+          self._cache[pos][prev_jump] = True
         if prev_jump == 0:
           next_jump_options = [1]
         else:
@@ -25,7 +25,7 @@ class Solution:
           if position - cur in next_jump_options:
             res = self.internal(idx, position - cur)
             if res:
-              self._cache[item] = True
-        if not item in self._cache:
-          self._cache[item] = False
-      return self._cache[item]
+              self._cache[pos][prev_jump] = True
+        if not prev_jump in self._cache[pos]:
+          self._cache[pos][prev_jump] = False
+      return self._cache[pos][prev_jump]
