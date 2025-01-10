@@ -5,7 +5,7 @@ class Solution:
     
     @cache
     def internal(self, pos, prev_jump):
-      next_jump_options = []
+      next_jump_options = None
       if pos == len(self._stones) - 1:
         return True
       if prev_jump == 0:
