@@ -19,9 +19,8 @@ class Solution:
       for idx, position in enumerate(self._stones[pos + 1:], start = pos + 1):
         if position > cur + next_jump_options[-1]:
           break
-        for opt in next_jump_options:
-          if position - opt == cur:
-            res = self.internal(idx, opt)
-            if res:
-              return True
+        if position - cur in next_jump_options:
+          res = self.internal(idx, position - cur)
+          if res:
+            return True
       return False
