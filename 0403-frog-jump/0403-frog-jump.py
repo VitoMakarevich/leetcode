@@ -13,11 +13,10 @@ class Solution:
           self._cache[pos][prev_jump] = True
         if prev_jump == 0:
           next_jump_options = [1]
+        elif prev_jump == 1:
+          next_jump_options = [1, 2]
         else:
-          if prev_jump == 1:
-            next_jump_options = [1, 2]
-          else:
-            next_jump_options = range(prev_jump - 1, prev_jump + 2)
+          next_jump_options = range(prev_jump - 1, prev_jump + 2)
         cur = self._stones[pos]
         for idx, position in enumerate(self._stones[pos + 1:], start = pos + 1):
           if position > cur + next_jump_options[-1]:
