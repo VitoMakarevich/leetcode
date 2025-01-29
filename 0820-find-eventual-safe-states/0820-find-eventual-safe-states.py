@@ -2,13 +2,13 @@ class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
         visited = set()
         cache = {}
-        safe_or_terminal = set()
+        safe_or_terminal = []
         for index, adj in enumerate(graph):
           if not index in visited:
             is_safe = self._dfs(index, graph, set(), cache)
             if is_safe:
-              safe_or_terminal.add(index)
-        return sorted(safe_or_terminal)
+              safe_or_terminal.append(index)
+        return safe_or_terminal
     def _dfs(self, node, graph, path, cache):
       if not node in cache:
         is_safe = True
