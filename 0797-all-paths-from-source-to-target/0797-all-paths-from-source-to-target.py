@@ -14,9 +14,7 @@ class Solution:
             paths = _dfs(adj)
             if len(paths) > 0:
               for p in paths:
-                copied_p = cur_path.copy()
-                copied_p.append(p)
-                res.append(copied_p)
+                res.append(cur_path + p)
                 local_r.append([node] + p)
           cache[node] = local_r
           cur_path.pop()
