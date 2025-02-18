@@ -1,9 +1,7 @@
 class Solution:
     def findSmallestSetOfVertices(self, n: int, edges: List[List[int]]) -> List[int]:
-        graph = {}
+        ans = set(range(n))
         for e in edges:
-          source, target = e
-          graph[target] = True
-          graph[source] = graph.get(source, False) or False
-        
-        return [index for index, value in graph.items() if not value ]
+            if e[1] in ans:
+                ans.remove(e[1])
+        return list(ans)
