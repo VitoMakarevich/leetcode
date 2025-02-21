@@ -1,11 +1,11 @@
 class Solution:
     def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start_node: int, end_node: int) -> float:
         visited = set()
-        graph = defaultdict(set)
+        graph = defaultdict(list)
         for index, e in enumerate(edges):
           a, b = e
-          graph[a].add((b, succProb[index]))
-          graph[b].add((a, succProb[index]))
+          graph[a].append((b, succProb[index]))
+          graph[b].append((a, succProb[index]))
         probs = defaultdict(int)
         probs[start_node] = 1
         q = [(-1, start_node)]
