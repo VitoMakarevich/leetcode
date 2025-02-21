@@ -18,21 +18,21 @@ class Solution:
             if not neigh in visited:
               heapq.heappush(q, self._calculate_item(neigh, target, new_distance + distance, path + direction))
         return "impossible"
+
           
     def _get_new_positions(self, current, maze, width, height, target):
       options = []
-      for incr, direction in [((0, -1), 'u'), ((0, 1), 'd'), ((-1, 0), 'l'), ((1, 0), 'r')]:
-        current_x, current_y = current
-        nc = current
-        while nc[0] >= 0 and nc[0] < width and nc[1] >= 0 and nc[1] < height and maze[nc[1]][nc[0]] == 0:
-          if target == nc:
-            break
-          new = (nc[0] + incr[0], nc[1] + incr[1])
-          if new[0] >= 0 and new[0] < width and new[1] >= 0 and new[1] < height and maze[new[1]][new[0]] == 0:
-            nc = new
-          else:
-            break
-        options.append((nc, abs(nc[0] - current[0]) + abs(nc[1] - current[1]), direction))
+      for (dx, dy), direction in [((0, -1), 'u'), ((0, 1), 'd'), ((-1, 0), 'l'), ((1, 0), 'r')]:
+        nc = list(current)  # Избегаем многократного распаковки current
+        while True:
+            new_x, new_y = nc[0] + dx, nc[1] + dy
+            if not (0 <= new_x < width and 0 <= new_y < height) or maze[new_y][new_x] != 0:
+                break
+            nc = [new_x, new_y]  
+            if target == tuple(nc):  # Если дошли до цели, сразу выходим
+                break
+        options.append((tuple(nc), abs(nc[0] - current[0]) + abs(nc[1] - current[1]), direction))
+
       return options
 
     def _calculate_item(self, current, target, distance, path):
