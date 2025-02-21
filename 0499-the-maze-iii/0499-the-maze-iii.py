@@ -23,13 +23,13 @@ class Solution:
     def _get_new_positions(self, current, maze, width, height, target):
       options = []
       for (dx, dy), direction in [((0, -1), 'u'), ((0, 1), 'd'), ((-1, 0), 'l'), ((1, 0), 'r')]:
-        nc = list(current)  # Избегаем многократного распаковки current
+        nc = list(current)
         while True:
             new_x, new_y = nc[0] + dx, nc[1] + dy
             if not (0 <= new_x < width and 0 <= new_y < height) or maze[new_y][new_x] != 0:
                 break
             nc = [new_x, new_y]  
-            if target == tuple(nc):  # Если дошли до цели, сразу выходим
+            if target == tuple(nc):
                 break
         options.append((tuple(nc), abs(nc[0] - current[0]) + abs(nc[1] - current[1]), direction))
 
