@@ -18,7 +18,6 @@ class Solution:
             if not neigh in visited:
               heapq.heappush(q, self._calculate_item(neigh, target, new_distance + distance, path + direction))
         return "impossible"
-
           
     def _get_new_positions(self, current, maze, width, height, target):
       options = []
