@@ -9,12 +9,13 @@ class Solution:
         q = [self._calculate_item(start_tuple, target, 0)]
         while q:
           score, rest = heapq.heappop(q)
+          
           distance, current = rest
+          visited.add(current)
           if current[0] == destination[1] and current[1] == destination[0]:
             return distance
           for neigh, new_distance in self._get_new_positions(current, maze, width, height):
             if not neigh in visited:
-              visited.add(current)
               heapq.heappush(q, self._calculate_item(neigh, target, new_distance + distance))
         return -1
 
