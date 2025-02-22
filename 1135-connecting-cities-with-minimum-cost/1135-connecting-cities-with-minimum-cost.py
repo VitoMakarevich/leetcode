@@ -32,7 +32,6 @@ class Solution:
     def minimumCost(self, n: int, connections: List[List[int]]) -> int:
         uf = UnionFind(n + 1)
         connections.sort(key = lambda x: x[2])
-        visited = set()
         total = 0
         for conn in connections:
           l, r, price = conn
