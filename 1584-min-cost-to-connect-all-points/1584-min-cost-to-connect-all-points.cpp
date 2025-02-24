@@ -43,7 +43,10 @@ public:
     int minCostConnectPoints(vector<vector<int>>& points) {
       int sum = 0;
       using VertexDistance = std::tuple<int, int>;
-      std::vector<int> visited(points.size(), false);
+      std::unordered_set<int> not_visited(points.size());
+      for (int i = 0; i < points.size(); ++i) {
+        not_visited.insert(i);
+      }
       std::priority_queue<VertexDistance, std::vector<VertexDistance>, std::greater<VertexDistance>> pq;
       pq.push(std::make_tuple(0, 0));
 
@@ -51,16 +54,12 @@ public:
         VertexDistance vd = pq.top();
         pq.pop();
         auto [distance, vertex] = vd;
-        if (!visited[vertex]) {
+        if (not_visited.find(vertex) != not_visited.end()) {
           sum += distance;
-          visited[vertex] = true;
-          size_t pointIdx = 0;
-          for (auto value: visited) {
-            if (!value) {
+          not_visited.erase(vertex);
+          for (auto pointIdx: not_visited) {
               auto candidateDistance = abs(points[pointIdx][0] - points[vertex][0]) + abs(points[pointIdx][1] - points[vertex][1]);
               pq.push(std::make_tuple(candidateDistance, pointIdx));
-            }
-            ++pointIdx;
           }
         }
       }
