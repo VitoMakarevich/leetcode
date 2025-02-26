@@ -30,18 +30,3 @@ class Solution:
                 q.append(neighbor_v)
           cur_level += 1
         return list(q)
-        
-    
-    # def add_level(self, node, level, res):
-    #   cur_level = 0
-    #   q = deque(node)
-    #   while cur_level < level:
-    #     for i in range(len(q)):
-    #       cur = q.popleft()
-    #       if cur.left:
-    #         q.append(cur.left)
-    #       if cur.right:
-    #         q.append(cur.right)
-    #     cur_level += 1
-    #   for v in q:
-    #     res.append(v)
