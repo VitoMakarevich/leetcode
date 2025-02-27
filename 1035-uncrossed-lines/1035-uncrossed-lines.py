@@ -1,19 +1,21 @@
-class Solution:
-    def maxUncrossedLines(self, nums1: List[int], nums2: List[int]) -> int:
-       self._m = len(nums1)
-       self._n = len(nums2)
-       self._nums1 = nums1
-       self._nums2 = nums2
+class Solution(object):
+    def maxUncrossedLines(self, nums1, nums2):
+        n1 = len(nums1)
+        n2 = len(nums2)
 
-       return self._solve(0, 0, {})
-    
-    def _solve(self, left_pos, right_pos, cache):
-      if left_pos == self._m or right_pos == self._n:
-        return 0
-      cache_key = f"{left_pos}-{right_pos}"
-      if not cache_key in cache:
-        if self._nums1[left_pos] == self._nums2[right_pos]:
-          cache[cache_key] = 1 + self._solve(left_pos + 1, right_pos + 1, cache)
-        else:
-          cache[cache_key] = max([self._solve(left_pos + 1, right_pos, cache), self._solve(left_pos, right_pos + 1, cache)])
-      return cache[cache_key]
+        memo = {}
+
+        def solve(i, j):
+            if i <= 0 or j <= 0:
+                return 0
+
+            if (i, j) in memo:
+                return memo[(i, j)]
+
+            if nums1[i - 1] == nums2[j - 1]:
+                memo[(i, j)] = 1 + solve(i - 1, j - 1)
+            else:
+                memo[(i, j)] = max(solve(i - 1, j), solve(i, j - 1))
+            return memo[(i, j)]
+
+        return solve(n1, n2)
