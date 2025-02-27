@@ -8,15 +8,12 @@ class Solution:
        return self._solve(0, 0, {})
     
     def _solve(self, left_pos, right_pos, cache):
+      if left_pos == self._m or right_pos == self._n:
+        return 0
       cache_key = f"{left_pos}-{right_pos}"
       if not cache_key in cache:
-        cand = []
-        for l in range(left_pos, self._m):
-          for r in range(right_pos, self._n):
-            if self._nums1[l] == self._nums2[r]:
-              cand.append(self._solve(l + 1, r + 1, cache))
-        if len(cand) > 0:
-          cache[cache_key] = 1 + max(cand)
+        if self._nums1[left_pos] == self._nums2[right_pos]:
+          cache[cache_key] = 1 + self._solve(left_pos + 1, right_pos + 1, cache)
         else:
-          cache[cache_key] = 0
+          cache[cache_key] = max([self._solve(left_pos + 1, right_pos, cache), self._solve(left_pos, right_pos + 1, cache)])
       return cache[cache_key]
