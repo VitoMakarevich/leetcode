@@ -1,16 +1,12 @@
 class Solution:
     def winnerSquareGame(self, n: int) -> bool:
-      return self._dp(n)
-        
-    @cache
-    def _dp(self, v):
-      if v == 0:
-        return False
-      sqr = math.sqrt(v)
-      for r in range(1, floor(sqr) + 1):
-        supposed_a_pick = r * r
-        remain = v - supposed_a_pick
-        if not self._dp(remain):
-          return True
-      return False
-      
+        dp = [False]*(n+1)
+        for i in range(n+1):
+            if dp[i]:
+                continue
+            for k in range(1, int(n**0.5)+1):
+                if i+k*k <= n:
+                    dp[i+k*k] = True
+                else:
+                    break
+        return dp[n]
