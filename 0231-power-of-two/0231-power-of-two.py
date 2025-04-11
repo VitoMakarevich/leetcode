@@ -3,4 +3,4 @@ class Solution:
         if n <= 0:
           return False
         rightmost_set_bit = n & (-n)
-        return rightmost_set_bit & n == n
+        return n & (-n) == n
