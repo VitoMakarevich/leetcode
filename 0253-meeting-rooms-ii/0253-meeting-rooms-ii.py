@@ -15,15 +15,4 @@ class Solution:
         max_used = max(max_used, len(pq)) 
        
       return max_used
-        # intervals.sort()
-        # events = SortedDict(int)
-        # change_times = set()
-        # for start, end in intervals:
-        #     events[start] = events.get(start, 0) + 1
-        #     events[end] = events.get(end, 0) - 1
-        # current_rooms = 0
-        # max_rooms_in_use = 0
-        # for time, change in events.items():
-        #     current_rooms += change
-        #     max_rooms_in_use = max(max_rooms_in_use, current_rooms)
-        # return max_rooms_in_use
+
