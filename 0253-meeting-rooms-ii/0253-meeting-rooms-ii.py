@@ -4,7 +4,7 @@ class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
       max_used = 0
       pq = []
-      intervals.sort()
+      intervals.sort(key = lambda x: x[0])
       for interval in intervals + [(100000000, 100000000)]:
         if not pq or pq[0] > interval[0]:
           heapq.heappush(pq, interval[1])
