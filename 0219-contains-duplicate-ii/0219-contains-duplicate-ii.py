@@ -1,5 +1,7 @@
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+      if k == 0:
+        return False
       sliding_window = {}
       # for each step - check for previous occurence of this number
       #   yes - check length diff and return early if <= k
