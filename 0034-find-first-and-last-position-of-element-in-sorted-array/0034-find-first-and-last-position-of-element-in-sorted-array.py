@@ -1,23 +1,35 @@
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        self._nums = nums
-        self._target = target
-        return self._search_pure_log(nums, target)
+        if len(nums) == 0:
+          return [-1, -1]
+        right = len(nums) - 1
+        left = self.bisect_left(nums, target, 0)
 
-    def _search_pure_log(self, nums, target):
-        return self._internal_search(0, len(nums) - 1)
-    def _internal_search(self, left, right):
-        if left > right:
-            return [-1, -1]
+        if nums[left] != target:
+          return [-1, -1]
+        right = self.bisect_right(nums, target, left)
+        return [left, right - 1]
 
-        mid = left + floor((right - left) / 2)
-        if self._nums[mid] > self._target:
-            return self._internal_search(left, mid - 1)
-        elif self._nums[mid] < self._target:
-            return self._internal_search(mid + 1, right)
+
+
+    def bisect_left(self, nums, target, low):
+      high = len(nums) - 1
+      while low < high:
+        
+        mid = (low + high) // 2
+        print(low, high, mid)
+        if nums[mid] >= target:
+          high = mid
         else:
-            leftmost = min(self._internal_search(left, mid - 1))
-            rightmost = max(self._internal_search(mid + 1, right))
-            left_correct = leftmost if leftmost != -1 else mid
-            right_correct = rightmost if rightmost != -1 else mid
-            return [left_correct, right_correct]
+          low = mid + 1
+      return low
+
+    def bisect_right(self, nums, target, low):
+      high = len(nums)
+      while low < high:
+        mid = (low + high) // 2
+        if nums[mid] <= target:
+          low = mid + 1
+        else:
+          high = mid
+      return low
