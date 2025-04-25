@@ -1,6 +1,6 @@
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
-        left = self.bisect_left(arr, x)
+        left = self.bisect_left(arr, x) - 1
         right = left + 1
         res = deque()
 
