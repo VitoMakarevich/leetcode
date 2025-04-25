@@ -10,5 +10,5 @@ class Solution:
           elif candidate > num:
             high = mid - 1
           else:
-            low = high + 1
+            low = mid + 1
         return False if num != 1 else True
