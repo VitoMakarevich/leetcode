@@ -14,7 +14,11 @@ class Solution:
         if node is None:
             return -1, True
         left_depth, left_balanced = self._dfs(node.left)
+        if not left_balanced:
+          return -1, left_balanced
         right_depth, right_balanced = self._dfs(node.right)
+        if not right_balanced:
+          return -1, right_balanced
         
         return 1 + max(left_depth, right_depth), abs(left_depth - right_depth) < 2 and left_balanced and right_balanced
         
