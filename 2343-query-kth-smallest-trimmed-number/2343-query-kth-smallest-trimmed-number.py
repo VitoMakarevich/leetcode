@@ -4,15 +4,15 @@ class Solution:
         num_with_index = [(idx, v) for idx, v in enumerate(nums)]
 
         trim_to_query = defaultdict(list)
-        min_trim_level = inf
+        min_trim_level = -inf
         max_trim_level = len(nums[0])
         
         for index, (position, trim_size) in q_with_index:
           trim_to_query[trim_size].append((index, position - 1))
-          min_trim_level = min(min_trim_level, trim_size)
+          min_trim_level = max(min_trim_level, trim_size)
         
         res = [0] * len(queries)
-        for trim_level in range(len(nums[0]) - 1, - 1, -1):
+        for trim_level in range(max_trim_level - 1, max_trim_level - min_trim_level - 1, -1):
           num_with_index = self._bucket_sort(num_with_index, trim_level)
           kth_trimmed = max_trim_level - trim_level
           for answer_index, position in trim_to_query[kth_trimmed]:
