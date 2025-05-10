@@ -11,7 +11,7 @@ class Solution:
           w_found = True
           for c in word:
             
-            pos = bisect_right(s_mapping[c], t_position)
+            pos = self._bisect_right(s_mapping[c], t_position)
             if pos == len(s_mapping[c]):
                 w_found = False
                 break
@@ -19,3 +19,13 @@ class Solution:
               
           res += int(w_found)
         return res
+
+    def _bisect_right(self, values, target):
+      low, high = 0, len(values)
+      while low < high:
+        mid = (low + high) // 2
+        if values[mid] > target:
+          high = mid
+        else:
+          low = mid + 1
+      return low
