@@ -5,8 +5,13 @@
 #         self.next = next
 class Solution:
     def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
+        iterator = head
+        count = 0
+        while iterator:
+          count += 1
+          iterator = iterator.next
         idx = 0
-        res = {}
+        res = [0] * count 
         q = deque()
         while head:
           while q and head.val > q[-1][1]:
@@ -19,7 +24,4 @@ class Solution:
         for idx, _ in q:
           res[idx] = 0
         
-        output = [0] * len(res)
-        for idx, result in res.items():
-          output[idx] = result
-        return output
+        return res
