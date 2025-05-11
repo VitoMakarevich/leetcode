@@ -4,7 +4,7 @@ class Solution:
         prefix_sum = [[0] * (len(grid[0]) + 1) for _ in range(len(grid) + 1)]
         total_sum = 0
         for i in range(1, len(grid) + 1):
-          for j in range(1, len(grid) + 1):
+          for j in range(1, len(grid[0]) + 1):
             total_sum += grid[i - 1][j - 1]
             prefix_sum[i][j] = prefix_sum[i - 1][j] + prefix_sum[i][j - 1] + grid[i - 1][j - 1] - prefix_sum[i - 1][j - 1]
         
