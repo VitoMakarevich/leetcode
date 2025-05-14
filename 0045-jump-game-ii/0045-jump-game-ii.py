@@ -1,14 +1,14 @@
 class Solution:
     def jump(self, nums: List[int]) -> int:
-      last_idx = len(nums) - 1
-      
-      @cache
-      def dp(start_idx):
-        if start_idx >= last_idx:
-          return 0
-        min_jumps_to_reach = inf
-        for jump_range in range(1, nums[start_idx] + 1):
-          min_jumps_to_reach = min(dp(jump_range + start_idx), min_jumps_to_reach)
-        return 1 + min_jumps_to_reach
+      cur_idx_end = cur_idx_biggest_jump = 0
+      ans = 0
+      idx = 0
+      while idx < len(nums) - 1:
+        cur_idx_end = idx + nums[idx]
+        for i in range(idx + 1, cur_idx_end + 1):
+          cur_idx_biggest_jump = max(cur_idx_biggest_jump, nums[i])
+        idx += cur_idx_biggest_jump
+        ans += 1
 
-      return dp(0)
+
+      return ans
