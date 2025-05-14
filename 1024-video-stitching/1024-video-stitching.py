@@ -10,14 +10,12 @@ class Solution:
         idx = 1
         while picked_y < time:
           next_y = picked_y
-          while idx < len(clips) and  clips[idx][0] <= picked_y:
-            if clips[idx][1] > next_y:
-              next_y = clips[idx][1]
+          while idx < len(clips) and clips[idx][0] <= picked_y:
+            next_y = max(clips[idx][1], next_y)
             idx += 1
           if next_y == picked_y:
             return -1
-          ans += 1
           picked_y = next_y
-          
+          ans += 1
 
         return ans
