@@ -9,16 +9,13 @@ class Solution:
         
         friends_at_level = self.find_friends_at_level(level, graph, id)
         
-        video_with_watch_count = Counter()
-        for friend in friends_at_level: 
-          for video in watchedVideos[friend]:
-            video_with_watch_count[video] += 1
-        
-        res = []
-        for video_name, count in video_with_watch_count.items():
-          res.append((count, video_name))
-        res.sort()
-        return list(map(lambda x: x[1], res))
+        video_with_watch_count = Counter(
+            video
+            for friend in friends_at_level
+            for video in watchedVideos[friend]
+        )
+
+        return [video for video, _ in sorted(video_with_watch_count.items(), key=lambda x: (x[1], x[0]))]
     def find_friends_at_level(self, level, graph, start):
       pq = [(0, start)]
       visited = set()
