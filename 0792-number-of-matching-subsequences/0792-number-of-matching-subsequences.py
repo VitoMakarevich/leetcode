@@ -11,7 +11,7 @@ class Solution:
           w_found = True
           for c in word:
             
-            pos = self._bisect_right(s_mapping[c], t_position)
+            pos = bisect_right(s_mapping[c], t_position)
             if pos == len(s_mapping[c]):
                 w_found = False
                 break
