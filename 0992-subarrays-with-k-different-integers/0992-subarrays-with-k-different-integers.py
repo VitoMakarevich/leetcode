@@ -5,14 +5,15 @@ class Solution:
     def _inner(self, nums, k):
       res = 0
       left, right = 0, 0
-      storage = defaultdict(int)
+      storage = {}
       while right < len(nums):
-        storage[nums[right]] += 1
+        storage[nums[right]] = storage.get(nums[right], 0) + 1
         
         while len(storage) > k:
-          storage[nums[left]] -= 1
-          if storage[nums[left]] == 0:
-            del storage[nums[left]]
+          left_num = nums[left]
+          storage[left_num] -= 1
+          if storage[left_num] == 0:
+            del storage[left_num]
           left += 1
         res += right - left + 1
         right += 1
