@@ -1,7 +1,6 @@
 class Solution:
     def mostVisitedPattern(self, username: List[str], timestamp: List[int], website: List[str]) -> List[str]:
         visits_by_user = defaultdict(list)
-        visits_by_website = defaultdict(set)
         for user, ts, website in zip(username, timestamp, website):
           visits_by_user[user].append((ts, website))
         pattern_and_score = defaultdict(set)
