@@ -41,7 +41,6 @@ class Solution:
           counts[most_popular_values_count - 1].add(mid)
         if len(most_popular_values) == 0:
             del counts[most_popular_values_count]
-        print(counts)
         
         
       return sum(counts.keys())
