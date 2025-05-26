@@ -5,12 +5,12 @@ EMPTY_LIST = []
 class GraphNode:
   def __init__(self, color):
     self.color = color
-    self.adj = []
+    self.adj = EMPTY_LIST
   def add_adj(self, adj):
-    # if self.adj is EMPTY_LIST:
-    #   self.adj = [adj]
-    # else:
-    self.adj.append(adj)
+    if self.adj is EMPTY_LIST:
+      self.adj = [adj]
+    else:
+      self.adj.append(adj)
 
 
 class Solution:
