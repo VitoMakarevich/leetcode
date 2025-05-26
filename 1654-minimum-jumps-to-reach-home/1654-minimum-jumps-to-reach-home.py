@@ -6,7 +6,7 @@ class Solution:
         visited.add((fb, True))
       q = deque([(0, False)])
       steps = 0
-      max_possible_to_jump_to_target = max(x, max(forbidden, default=0)) + a + b + 2000
+      max_possible_to_jump_to_target = a + b + 2000
       while q:
         
         for _ in range(len(q)):
