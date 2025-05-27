@@ -8,12 +8,10 @@ class Solution:
         if num in visited:
           continue
         if num == 1:
-          if counter[num] > 1 and counter[num] % 2 == 0:
+          if counter[num] % 2 == 0:
             res = counter[num] - 1
-          elif counter[num] > 1 and counter[num] % 2 == 1:
-            res = counter[num]
           else:
-            res = max(res, counter[num] )
+            res = counter[num]
           continue
         visited.add(num)
         prev_num = num
