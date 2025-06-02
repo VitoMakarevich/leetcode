@@ -19,8 +19,6 @@ class Solution:
           state[day] = idx
         else:
           free.add(idx)
-      while free:
-        min_item = free[0]
-        free.discard(min_item)
+      for min_item in free:
         res[min_item] = 1
       return res
