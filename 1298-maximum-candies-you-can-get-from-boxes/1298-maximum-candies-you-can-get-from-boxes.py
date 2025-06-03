@@ -13,7 +13,6 @@ class Solution:
       res = 0
       while q:
         cur = q.popleft()
-        print(cur)
         res += candies[cur]
         for key in keys[cur]:
           status[key] = 1
