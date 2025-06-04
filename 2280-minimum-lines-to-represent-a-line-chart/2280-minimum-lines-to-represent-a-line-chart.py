@@ -8,7 +8,8 @@ class Solution:
       res = 1
       for point in stockPrices[2:]:
         vector_with_cur = self.get_a_b(prev_point, point)
-        if vector_with_cur != prev_vector:
+
+        if not (isclose(vector_with_cur[0], prev_vector[0]) and isclose(vector_with_cur[1], prev_vector[1])):
           res += 1
           prev_vector = vector_with_cur
         prev_point = point
