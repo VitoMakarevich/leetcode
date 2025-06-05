@@ -7,7 +7,7 @@ class Solution:
       res = (size) // 2
       for _, indexes in store.items():
         time = (size - indexes[-1] + indexes[0]) // 2
-        for f, s in zip(indexes, indexes[1:]):
+        for f, s in pairwise(indexes):
           time = max(time, (s - f) // 2)
         res = min(res, time)
       return res
