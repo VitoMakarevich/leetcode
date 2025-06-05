@@ -11,3 +11,4 @@ class Solution:
           time = max(time, ceil((s - 1 - f) / 2))
         res = min(res, time)
       return res
+      
