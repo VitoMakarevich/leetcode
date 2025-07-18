@@ -1,25 +1,23 @@
 class TimeLimitedCache {
-    cache = {}
-    timeouts = {}
+    cache = new Map()
+    timeouts = new Map()
     
     constructor() {
-        this.cache = {}
-        this.timeouts = {}
     }
     
     set(key: number, value: number, duration: number): boolean {
-        const existing = this.cache[key]
-        const exists = this.cache[key] !== undefined
+        const existing = this.cache.get(key)
+        const exists = existing !== undefined
         if(exists) {
-          clearTimeout(this.timeouts[key])
+          clearTimeout(this.timeouts.get(key))
         }
-        this.cache[key] = value
-        this.timeouts[key] = setTimeout(() => delete this.cache[key], duration)
+        this.cache.set(key, value)
+        this.timeouts.set(key, setTimeout(() => this.cache.delete(key), duration))
         return exists
     }
     
     get(key: number): number {
-        const existing = this.cache[key]
+        const existing = this.cache.get(key)
         if (existing == undefined) {
           return -1
         }
@@ -27,7 +25,7 @@ class TimeLimitedCache {
     }
     
     count(): number {
-        return Object.keys(this.cache).length
+        return this.cache.size
     }
 }
 
