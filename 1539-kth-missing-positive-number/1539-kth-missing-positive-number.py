@@ -13,11 +13,9 @@ class Solution:
           else:
             left = mid + 1
         missing_from_right = missing_to_left(left)
-        if left == 0:
-          if missing_from_right < k:
-            return arr[left] + k - missing_from_right
-          else:
-            return k
+        if left == 0 and missing_from_right < k:
+
+          return arr[left] + k - missing_from_right
         elif k > missing_from_right:
           return arr[left] + k - missing_from_right
         else:
