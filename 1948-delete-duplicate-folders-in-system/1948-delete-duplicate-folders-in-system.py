@@ -18,11 +18,11 @@ class Node:
     if not self.childs:
         return Node.EMPTY_HASH
     else:
-        children_serials = []
+        children_serials = ""
         for name in sorted(self.childs):
             child = self.childs[name]
-            children_serials.append(f"{name}({child.hash()})")
-        self._hash = ''.join(children_serials)
+            children_serials += str(hash(name + child.hash()))
+        self._hash = children_serials
 
     return self._hash
 
