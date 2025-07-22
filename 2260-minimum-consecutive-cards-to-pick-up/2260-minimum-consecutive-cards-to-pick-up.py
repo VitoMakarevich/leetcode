@@ -1,10 +1,10 @@
 class Solution:
     def minimumCardPickup(self, cards: List[int]) -> int:
-        store = defaultdict(list)
-        for idx, card in enumerate(cards):
-          store[card].append(idx)
+        store = {}
+
         res = inf
-        for indexes in store.values():
-          for i1, i2 in pairwise(indexes):
-            res = min(res, i2 - i1 + 1)
-        return res if res != inf else -1
+        for idx, card in enumerate(cards):
+          if card in store:
+            res = min(res, idx - store[card] + 1)
+          store[card] = idx
+        return res if res != inf else -1       
