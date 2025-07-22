@@ -19,7 +19,7 @@ class Node:
         return Node.EMPTY_HASH
     else:
         children_serials = []
-        for name in self.childs:
+        for name in sorted(self.childs):
             child = self.childs[name]
             children_serials.append(f"{name}({child.hash()})")
         self._hash = ''.join(children_serials)
@@ -29,7 +29,6 @@ class Node:
 class Solution:
     def deleteDuplicateFolder(self, paths: List[List[str]]) -> List[List[str]]:
         root = Node('/')
-        paths.sort()
 
         for p in paths:
           cur_insert = root
