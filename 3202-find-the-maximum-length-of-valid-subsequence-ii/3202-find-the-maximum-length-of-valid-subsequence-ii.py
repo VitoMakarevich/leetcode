@@ -5,6 +5,6 @@ class Solution:
       for num in nums:
         num %= k
         for prev in range(k):
-          dp[prev][num] = dp[num][prev] + 1
-          res = max(res, dp[prev][num])
+          dp[num][prev] = dp[prev][num] + 1
+          res = max(res, dp[num][prev])
       return res
