@@ -44,10 +44,10 @@ class Solution:
           
         dfs_hash(root)
         
-        to_delete = {}
+        to_delete = set()
         for hash_value, nodes in store.items():
           if len(nodes) > 1 and not hash_value == Node.EMPTY_HASH:
-            to_delete[hash_value] = nodes
+            to_delete.add(hash_value)
 
         res = []
         def dfs_list(node, cur_path):
