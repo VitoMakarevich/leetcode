@@ -6,8 +6,8 @@ class Solution:
           y_to_x[y].append(x)
         valid_y = {}
         combs = [comb(len(x), 2) for x in y_to_x.values()]
-        sum_combs = sum(combs) ** 2 % modulo
-        sum_squares = sum([c ** 2 for c in combs]) % modulo
-        res = ((sum_combs - sum_squares) * pow(2, -1, modulo)) % modulo
+        sum_combs = sum(combs) ** 2 
+        sum_squares = sum([c ** 2 for c in combs])
+        res = ((sum_combs - sum_squares) // 2) % modulo
         return res
         
