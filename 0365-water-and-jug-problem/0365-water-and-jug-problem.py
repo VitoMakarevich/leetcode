@@ -13,7 +13,6 @@ class Solution:
           # 1
           q.append((x, 0))
           q.append((0, y))
-          q.append((x, y))
           q.append((x, cur_right))
           q.append((cur_left, y))
           # 2
