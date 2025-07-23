@@ -14,14 +14,21 @@ class Solution:
           res = cur
           cur = cur.left
         return res
-      def dfs(prev, node, direction):
+      def dfs(node, path):
+        path.append(node)
         if node.val == p.val:
-          return prev if direction == 'l' else None
+          return
         elif node.val < p.val:
-          return dfs(node, node.right, 'r')
-        return dfs(node, node.left, 'l')
+          dfs(node.right, path)
+        else:
+          dfs(node.left, path)
         
-      return dfs(None, root, 'r')
+      path = []
+      dfs(root, path)
+      path.pop()
+      while path and path[-1].val < p.val:
+        path.pop()
+      return path[-1] if path else None
           
             
             
