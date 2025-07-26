@@ -12,9 +12,9 @@ class Solution:
             if low <= node.val <= high:
                 print(f'adding {node.val}')
                 local_res += node.val
-            if node.left and (node.left.val >= low or node.val > low):
+            if node.left and node.val > low:
                 local_res += dfs(node.left)
-            if node.right and (node.right.val <= high or node.val < high):
+            if node.right and node.val < high:
                 local_res += dfs(node.right)
             return local_res
         return dfs(root)
