@@ -10,7 +10,6 @@ class Solution:
         def dfs(node):
             local_res = 0
             if low <= node.val <= high:
-                print(f'adding {node.val}')
                 local_res += node.val
             if node.left and node.val > low:
                 local_res += dfs(node.left)
