@@ -22,7 +22,7 @@ class Solution:
       
       prefix_prod = [1]
       for v in res:
-        prefix_prod.append((prefix_prod[-1] * v) % mod)
+        prefix_prod.append((prefix_prod[-1] * v))
       
       output = []
 
@@ -32,6 +32,6 @@ class Solution:
       for start, end in queries:
           numerator = prefix_prod[end + 1]
           denominator = prefix_prod[start]
-          prod = numerator * mod_inv(denominator) % mod
+          prod = (numerator // denominator) % mod
           output.append(prod)
       return output
