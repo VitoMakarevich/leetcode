@@ -7,10 +7,9 @@ class Solution:
       for c in s:
         if c in vowels_set:
           vowels_in_str.append(c)
-      vowels_in_str.sort()
-      ptr = 0
+      vowels_in_str.sort(reverse = True)
       for i, c in enumerate(s):
         if c in vowels_set:
-          s[i] = vowels_in_str[ptr]
-          ptr += 1
+          s[i] = vowels_in_str[-1]
+          vowels_in_str.pop()
       return ''.join(s)
