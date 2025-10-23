@@ -40,14 +40,14 @@ product_category_count AS (
 most_frequent_category_inter AS (
     SELECT
         customer_id,
-        first_value(category) over (partition by customer_id order by count desc, last_transaction desc) top_category,
+        rank() over (partition by customer_id order by count desc, last_transaction desc) rank,
         category
     FROM
         product_category_count
 ),
 most_frequent_category as (
-  select * from most_frequent_category_inter
-  where category = top_category
+  select customer_id, category top_category from most_frequent_category_inter
+  where rank = 1
 )
 SELECT
     ad.customer_id,
