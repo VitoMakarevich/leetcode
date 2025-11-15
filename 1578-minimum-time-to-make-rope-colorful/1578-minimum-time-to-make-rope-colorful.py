@@ -1,12 +1,12 @@
 class Solution:
     def minCost(self, colors: str, neededTime: List[int]) -> int:
+      res = 0
+      colors = '0' + colors + '0'
+      neededTime = [0] + neededTime + [0]
       prev_color = colors[0]
       max_time = neededTime[0]
       sum_time = max_time
-      res = 0
-      colors += '0'
-      neededTime += [0]
-      for color, time in zip(colors[1:], neededTime[1:]):
+      for color, time in zip(colors, neededTime):
         if color != prev_color:
           if sum_time > max_time:
             res += sum_time - max_time
