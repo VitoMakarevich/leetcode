@@ -4,6 +4,9 @@ class Solution:
       i = 0
       s += '0'
       mod = (10 ** 9 + 7)
+      @cache
+      def count(l):
+        return ((1 + length) / 2 * length) % mod
       while i < len(s):
         if s[i] == '1':
           start = i
@@ -11,7 +14,7 @@ class Solution:
             i += 1
           i -= 1
           length = i - start + 1
-          res += ((1 + length) / 2 * length) % mod
+          res += count(length)
         i += 1
       return int(res)
         
