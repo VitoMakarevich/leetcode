@@ -10,12 +10,10 @@ class Solution:
     head = dummy.next
     prev = dummy
     while head:
-      prev_head = head
       if head.val in num_to_del:
         prev.next = head.next
-        head = prev_head.next
       else:
-        head = head.next
-        prev = prev_head
+        prev = head
+      head = head.next
       
     return dummy.next
