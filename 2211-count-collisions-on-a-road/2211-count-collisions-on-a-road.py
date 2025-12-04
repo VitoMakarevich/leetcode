@@ -1,26 +1,30 @@
+def _util(value, price, search):
+  if len(value) == 0:
+    return 0, value
+  new_str = [value[0]]
+  res = 0
+  for d in value[1:]:
+
+    comb = new_str[-1] + d
+    if comb == search:
+      new_str.pop()
+      new_str.append('S')
+      res += price
+    elif not (new_str[-1] == 'S' and d == 'S'):
+      new_str.append(d) 
+  return res, ''.join(new_str)
+
 class Solution:
     def countCollisions(self, directions: str) -> int:
-        stack = []
-        res = 0
-        for d in directions:
-          if not stack:
-            stack.append(d)
-            continue
-          prev_cur = stack[-1] + d
-          match prev_cur:
-            case 'SS' | 'LS' | 'SR' | 'LR':
-              stack.pop()
-              stack.append(d)
-            case 'SL' :
-              res += 1
-            case 'RR':
-              stack.append(d)
-            case 'RS' | 'RL':
-              if prev_cur == 'RL':
-                res += 1
-              while stack and stack[-1] == 'R':
-                res += 1
-                stack.pop()
-              stack.append('S')
-        return res
+      res = 0
+      new = directions
+      for price, pattern in [(2, 'RL'), (1, 'SL')]:
+        prev = new
+        collisions, new = _util(new, price, pattern)
+        res += collisions
+      res += _util(new[::-1].replace('L', '').replace('R', 'L'), 1, 'SL')[0]
+      return res
 
+      
+
+      
