@@ -22,7 +22,7 @@ class Solution:
         prev = new
         collisions, new = _util(new, price, pattern)
         res += collisions
-      res += _util(new[::-1].replace('L', '').replace('R', 'L'), 1, 'SL')[0]
+      res += _util(new[::-1], 1, 'SR')[0]
       return res
 
       
