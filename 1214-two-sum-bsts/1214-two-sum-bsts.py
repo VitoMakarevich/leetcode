@@ -7,8 +7,11 @@
 class Solution:
     def twoSumBSTs(self, root1: Optional[TreeNode], root2: Optional[TreeNode], target: int) -> bool:
       left_list = self._to_list(root1)
-      right_list = self._to_list(root2)
-      return self._find_pair(left_list, right_list, target) or self._find_pair(right_list, left_list, target)
+      right_set = set(self._to_list(root2))
+      for v in left_list:
+        if target - v in right_set:
+          return True
+      return False
 
     def _to_list(self, tree):
       if tree == None:
