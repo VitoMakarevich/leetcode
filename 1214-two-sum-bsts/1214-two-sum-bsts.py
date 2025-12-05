@@ -25,14 +25,3 @@ class Solution:
       left = self._to_list(tree.left)
       right = self._to_list(tree.right)
       return left + [tree.val] + right
-    
-
-    def _find_pair(self, values, candidates, total):
-      start = 0
-      for cand in values:
-        target = total - cand
-        found = bisect_left(candidates, target)
-        if found < len(candidates) and candidates[found] == target:
-          return True
-        start = found
-      return False
