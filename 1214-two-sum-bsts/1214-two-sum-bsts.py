@@ -7,10 +7,16 @@
 class Solution:
     def twoSumBSTs(self, root1: Optional[TreeNode], root2: Optional[TreeNode], target: int) -> bool:
       left_list = self._to_list(root1)
-      right_set = set(self._to_list(root2))
-      for v in left_list:
-        if target - v in right_set:
+      right_list = self._to_list(root2)
+      left = 0
+      right = len(right_list) - 1
+      while left < len(left_list) and right >= 0:
+        if left_list[left] + right_list[right] == target:
           return True
+        elif left_list[left] + right_list[right] < target:
+          left += 1
+        else:
+          right -= 1
       return False
 
     def _to_list(self, tree):
