@@ -6,28 +6,24 @@
 #         self.right = right
 class Solution:
     def twoSumBSTs(self, root1: Optional[TreeNode], root2: Optional[TreeNode], target: int) -> bool:
-      left_search = self._find(root1, root2, target)
-      right_search = self._find(root2, root1, target)
-      return left_search or right_search
+      left_list = self._to_list(root1)
+      right_list = self._to_list(root2)
+      return self._find_pair(left_list, right_list, target) or self._find_pair(right_list, left_list, target)
 
-    def _find(self, left, right, total):
-      if left == None:
-        return False
-      if self._find(left.left, right, total):
-        return True
-      target = total - left.val
-      if self.exists_in(right, target):
-        return True
-      if self._find(left.right, right, total):
-        return True
-      return False
-    
-    def exists_in(self, tree, value):
+    def _to_list(self, tree):
       if tree == None:
-        return False
-      if tree.val == value:
-        return True
-      if value > tree.val:
-        return self.exists_in(tree.right, value)
-      return self.exists_in(tree.left, value)
-      
+        return []
+      left = self._to_list(tree.left)
+      right = self._to_list(tree.right)
+      return left + [tree.val] + right
+    
+
+    def _find_pair(self, values, candidates, total):
+      start = 0
+      for cand in values:
+        target = total - cand
+        found = bisect_left(candidates, target)
+        if found < len(candidates) and candidates[found] == target:
+          return True
+        start = found
+      return False
