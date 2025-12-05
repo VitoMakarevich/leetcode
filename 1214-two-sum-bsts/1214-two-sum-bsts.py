@@ -6,22 +6,24 @@
 #         self.right = right
 class Solution:
     def twoSumBSTs(self, root1: Optional[TreeNode], root2: Optional[TreeNode], target: int) -> bool:
-      left_list = self._to_list(root1)
-      right_list = self._to_list(root2)
-      left = 0
-      right = len(right_list) - 1
-      while left < len(left_list) and right >= 0:
-        if left_list[left] + right_list[right] == target:
-          return True
-        elif left_list[left] + right_list[right] < target:
-          left += 1
-        else:
-          right -= 1
-      return False
-
-    def _to_list(self, tree):
-      if tree == None:
-        return []
-      left = self._to_list(tree.left)
-      right = self._to_list(tree.right)
-      return left + [tree.val] + right
+        def dfs(curr_node, node_list):
+            if not curr_node:
+                return
+            dfs(curr_node.left, node_list)
+            node_list.append(curr_node.val)
+            dfs(curr_node.right, node_list)
+        
+        node_list1, node_list2 = [], []
+        dfs(root1, node_list1)
+        dfs(root2, node_list2)
+        
+        pointer1 = 0
+        pointer2 = len(node_list2) - 1
+        while pointer1 < len(node_list1) and pointer2 >= 0:
+            if node_list1[pointer1] + node_list2[pointer2] == target:
+                return True
+            elif node_list1[pointer1] + node_list2[pointer2] < target:
+                pointer1 += 1
+            else:
+                pointer2 -= 1
+        return False
